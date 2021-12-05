@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Bookstore.dir/main_1.cpp.o  -o Bookstore 
