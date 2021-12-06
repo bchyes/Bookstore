@@ -1,10 +1,18 @@
+
+
 # Bookstore
 
 > 包晨豪
 
-将每一个账户存进文件
+## 文件储存
 
-将每一本书存进文件
+所有账户与所有图书
+
+每个员工的操作
+
+财务信息 所有员工的操作 日志类
+
+## 代码文件结构
 
 main函数
 
@@ -14,7 +22,7 @@ enum Expression {
     show, buy, select_, modify, import, report_myself, show_finance,
     report_finance, report_employee, log_, quit, exit_
 };
-Expression getOrder(string s) {
+Expression GetOrder(string s) {
     if (s == "su") return su;
     if (s == "logout") return logout;
     if (s == "register") return register_;
@@ -35,7 +43,7 @@ Expression getOrder(string s) {
     if (s == "exit") return exit_;
 }
 int main(){
-Expression exp = getOrder(s);
+Expression exp = GetOrder(s);
     switch (exp) {
         case su:
             break;
@@ -79,7 +87,9 @@ Expression exp = getOrder(s);
 
 通过如上的算法来调用指令
 
-账户系统
+## 接口与成员说明
+
+账户与图书系统
 
 ```c++
 class People {
@@ -123,28 +133,6 @@ public:
 };
 ```
 
-图书系统
-
-```c++
-class BookManager : public Manager {
-
-};
-
-class BookEmployee : public Employee {
-
-};
-
-class BookCustom : public Custom {
-    
-};
-
-class BookVisitor : public Visitor {
-    
-};
-```
-
-在对应的派生类中定义相应的图书操作
-
 任何main函数的指令通过People进行调用
 
 ```c++
@@ -171,15 +159,41 @@ public:
     virtual void Modify(string isbn, string name, string author, string keyword, double price);
 
     virtual void Import(int quantity, double cost);
+
+    virtual void ReportMyself();
+
+    virtual void ShowFinance(int time);
+
+    virtual void ReportFinance();
+
+    virtual void ReportEmployee();
+
+    virtual void Log();
 };
 
 class Manager : public People {
-    
+public:
 };
 
 class Employee : public People {
 public:
     virtual void Delete(string id) {
+        throw Invaild();
+    }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
         throw Invaild();
     }
 };
@@ -191,6 +205,38 @@ public:
     }
 
     virtual void Delete(string id) {
+        throw Invaild();
+    }
+
+    virtual void Select(string isbn) {
+        throw Invaild();
+    }
+
+    virtual void Modify(string isbn, string name, string author, string keyword, double price) {
+        throw Invaild();
+    }
+
+    virtual void Import(int quantity, double cost) {
+        throw Invaild();
+    }
+
+    virtual void ReportMyself() {
+        throw Invaild();
+    }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
         throw Invaild();
     }
 };
@@ -212,32 +258,7 @@ public:
     virtual void Delete(string id) {
         throw Invaild();
     }
-};
-class BookManager : public Manager {
 
-};
-
-class BookEmployee : public Employee {
-
-};
-
-class BookCustom : public Custom {
-public:
-    virtual void Select(string isbn) {
-        throw Invaild();
-    }
-
-    virtual void Modify(string isbn, string name, string author, string keyword, double price) {
-        throw Invaild();
-    }
-
-    virtual void Import(int quantity, double cost) {
-        throw Invaild();
-    }
-};
-
-class BookVisitor : public Visitor {
-public:
     virtual void Show(string isbn, string name, string author, string keyword) {
         throw Invaild();
     }
@@ -257,6 +278,64 @@ public:
     virtual void Import(int quantity, double cost) {
         throw Invaild();
     }
+
+    virtual void ReportMyself() {
+        throw Invaild();
+    }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
+        throw Invaild();
+    }
 };
 ```
+
+## 具体算法说明
+
+```c++
+    virtual void Su(string id, string pass_word);//以栈来维护，登入账号推入栈
+
+    virtual void Logout();//退出栈
+
+    virtual void Register(string id, string pass_word, string user_name);//以块链维护账户信息
+
+    virtual void Passwd(string id, string old_passwd, string new_passed);//通过块链找到账户信息
+
+    virtual void Useradd(string id, string pass_word, int priority, string user_name);//以块链维护账户信息
+
+    virtual void Delete(string id);//先通过栈寻找是否登陆，再通过块链删除
+
+    virtual void Show(string isbn, string name, string author, string keyword);//图书信息由另一个文件的块链储存
+
+    virtual void Buy(string isbn, int quantity);//通过块链找到信息并修改
+
+    virtual void Select(string isbn);//通过块链找到信息，同时在该类中记录选中的图书
+
+    virtual void Modify(string isbn, string name, string author, string keyword, double price);//通过记录的信息在块链中修改
+
+    virtual void Import(int quantity, double cost);//通过记录的信息在块链中修改
+
+    virtual void ReportMyself();//每一个员工包含一个ASCLL文件信息，在每一次的操作后记录信息于文件之中
+
+    virtual void ShowFinance(int time);
+
+    virtual void ReportFinance();
+
+    virtual void ReportEmployee();
+
+    virtual void Log();//以上三个操作均存一个不同的ASCLL文件
+```
+
+
 
