@@ -6,17 +6,18 @@
 
 ## 文件储存
 
-所有账户与所有图书
+所有账户与所有图书 均以二进制文件储存，并用块状链表维护
 
-每个员工的操作
+所有员工的操作 以二进制文件储存，用链表维护（每一个节点的信息为操作以及下一个这个员工的操作在文件中的位置）
 
-财务信息 所有员工的操作 日志类
+财务信息 日志类 以ASCLL文件直接储存
 
 ## 代码文件结构
 
 main函数
 
 ```c++
+stack<NodePeople> log_in;//登陆栈
 enum Expression {
     su, logout, register_, passwd, useradd, delete_,
     show, buy, select_, modify, import, report_myself, show_finance,
@@ -43,7 +44,7 @@ Expression GetOrder(string s) {
     if (s == "exit") return exit_;
 }
 int main(){
-Expression exp = GetOrder(s);
+    Expression exp = GetOrder(s);
     switch (exp) {
         case su:
             break;
@@ -137,8 +138,19 @@ public:
 
 ```c++
 class People {
+protected:
+    fstream file_people;//操作账户文件
+    fstream file_book;//操作图书文件
+    fstream file_index_people;//操作账户索引
+    fstream file_index_book;//操作图书索引
+    NodeIndexPeople idx_people;//读取账户索引
+    NodeIndexBook idx_book;//读取图书索引
+    BlockPeople blo_people;//读取账户信息
+    BlockBook blo_book;//读取图书信息
 public:
     virtual void Su(string id, string pass_word);
+
+    virtual void Su(string id);//特殊处理虚函数
 
     virtual void Logout();
 
@@ -152,6 +164,8 @@ public:
 
     virtual void Show(string isbn, string name, string author, string keyword);
 
+    virtual void Show();
+
     virtual void Buy(string isbn, int quantity);
 
     virtual void Select(string isbn);
@@ -163,6 +177,8 @@ public:
     virtual void ReportMyself();
 
     virtual void ShowFinance(int time);
+
+    virtual void ShowFinance();
 
     virtual void ReportFinance();
 
@@ -182,6 +198,9 @@ public:
     }
 
     virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+    virtual void ShowFinance() {
         throw Invaild();
     }
 
@@ -227,7 +246,9 @@ public:
     virtual void ShowFinance(int time) {
         throw Invaild();
     }
-
+    virtual void ShowFinance() {
+        throw Invaild();
+    }
     virtual void ReportFinance() {
         throw Invaild();
     }
@@ -262,6 +283,9 @@ public:
     virtual void Show(string isbn, string name, string author, string keyword) {
         throw Invaild();
     }
+    virtual void Show(){
+        throw Invaild();
+    }
 
     virtual void Buy(string isbn, int quantity) {
         throw Invaild();
@@ -286,6 +310,9 @@ public:
     virtual void ShowFinance(int time) {
         throw Invaild();
     }
+    virtual void ShowFinance() {
+        throw Invaild();
+    }
 
     virtual void ReportFinance() {
         throw Invaild();
@@ -305,6 +332,8 @@ public:
 
 ```c++
     virtual void Su(string id, string pass_word);//以栈来维护，登入账号推入栈
+    
+    virtual void Su(string id);//特殊处理
 
     virtual void Logout();//退出栈
 
@@ -318,6 +347,8 @@ public:
 
     virtual void Show(string isbn, string name, string author, string keyword);//图书信息由另一个文件的块链储存
 
+    virtual void Show();
+
     virtual void Buy(string isbn, int quantity);//通过块链找到信息并修改
 
     virtual void Select(string isbn);//通过块链找到信息，同时在该类中记录选中的图书
@@ -326,9 +357,11 @@ public:
 
     virtual void Import(int quantity, double cost);//通过记录的信息在块链中修改
 
-    virtual void ReportMyself();//每一个员工包含一个ASCLL文件信息，在每一次的操作后记录信息于文件之中
+    virtual void ReportMyself();//以二进制文件储存，用链表维护（每一个节点的信息为操作以及下一个这个员工的操作在文件中的位置）
 
     virtual void ShowFinance(int time);
+
+    virtual void ShowFinance();
 
     virtual void ReportFinance();
 
@@ -337,5 +370,70 @@ public:
     virtual void Log();//以上三个操作均存一个不同的ASCLL文件
 ```
 
+## 块状链表
 
+```c++
+struct NodePeople {
+    char user_id[32];
+    char password[32];
+    int priority;
+};//人节点，储存信息
+struct NodeBook{
+    char isbn[22];
+    char book_name[62];
+    char author[62];
+    char keyword[62];
+    int quantity;
+    double price;
+};//书节点，储存信息
+struct BlockPeople {
+    static const int maxn = 320;//一个块记录的节点个数最大值
+    NodePeople size[maxn + 2];
+    int now = 0;//现在块中储存的节点的个数
+};//为块状链表中的块
+struct NodeIndexPeople {
+    long long next = -1;//记录索引下一个在索引文件中的位置
+    NodePeople end;//记录对应的块的最后一个节点
+    long long block_begin = 0;//记录对应的块在文件中的位置
+};//块状链表的索引
+struct BlockBook {
+    static const int maxn = 320;//一个块记录的节点个数最大值
+    NodeBook size[maxn + 2];
+    int now = 0;//现在块中储存的节点的个数
+};//为块状链表中的块
+struct NodeIndexBook {
+    long long next = -1;//记录索引下一个在索引文件中的位置
+    NodeBook end;//记录对应的块的最后一个节点
+    long long block_begin = 0;//记录对应的块在文件中的位置
+};//块状链表的索引
+```
 
+## 日志类
+
+report myself输出形式
+
+name:
+
+|did XXX|
+
+|did XX|
+
+......
+
+report finance
+
+|cost XXX to did XXX|
+
+|earn XXX from did XXX|
+
+......
+
+report employee
+
+|XXX did XXX|
+
+......
+
+log
+
+同上述输出
