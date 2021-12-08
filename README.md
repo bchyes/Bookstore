@@ -147,6 +147,10 @@ protected:
     NodeIndexBook idx_book;//读取图书索引
     BlockPeople blo_people;//读取账户信息
     BlockBook blo_book;//读取图书信息
+    fstream file_operator;//写出员工的操作
+    fstream file_finance;//写出财务的记录
+    fstream file_finance_math;//以数字的形式写出财务记录，在文件的开头记录交易笔数
+    fstream file_diary;//写出日志
 public:
     virtual void Su(string id, string pass_word);
 
@@ -406,9 +410,22 @@ struct NodeIndexBook {
     NodeBook end;//记录对应的块的最后一个节点
     long long block_begin = 0;//记录对应的块在文件中的位置
 };//块状链表的索引
+struct Operator{
+    char message[502];
+    long long next;//记录下一个同一员工的操作
+};//记录每一次员工的操作
+struct Finance{
+    char message[502];
+};//财务记录
+struct FinanceMath{
+  double money;  
+};//用于财务的查询
+struct diary{
+  char message[502];  
+};//用于日志指令
 ```
 
-## 日志类
+## 日志系统
 
 report myself输出形式
 
