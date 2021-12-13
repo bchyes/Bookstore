@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/d/CLion/Bookstore-main/Bookstore/store/src/main_template.cpp
+template.h
+/mnt/d/CLion/Bookstore-main/Bookstore/store/src/template.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/store/src/template.h
+fstream
+-
+bits/stdc++.h
+-
+

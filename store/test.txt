@@ -1,0 +1,132 @@
+11
+insert FlowersForAlgernon 1966
+insert CppPrimer 2012
+insert Dune 2021
+insert CppPrimer 2001
+find CppPrimer
+find Java
+delete CppPrimer 2001
+delete CppPrimer 2012
+insert CppPrimer 2005
+find Dune
+find CppPrimer
+
+53
+insert GlowersForAlgernon 1966
+insert CppPrimer 2012
+insert Bune 2021
+insert Bune 2022
+insert Bune 2023
+insert Bune 2024
+insert CppPrimer 2001
+insert Bker 2021
+insert Dier 2021
+insert Bker 2025
+insert Bker 3000
+insert Bker 1000
+find CppPrimer
+find Bava
+find Bker
+delete CppPrimer 2001
+delete CppPrimer 2012
+insert CppPrimer 2025
+insert CppPrimer 2055
+delete Bune 2021
+delete Bune 2022
+delete Bune 2023
+delete Bune 2024
+insert CppPrimer 2005
+insert CppPrimer 2006
+find Bune
+find CppPrimer
+find GlowersForAlgernon
+delete GlowersForAlgernon 1966
+delete Bker 2021
+delete Bker 2025
+delete Bker 3000
+find Bker
+delete Bker 1000
+find Bker
+delete CppPrimer 2005
+delete CppPrimer 2006
+delete CppPrimer 2025
+delete CppPrimer 2055
+find CppPrimer
+find Bava
+find Jaba
+insert Abc 123
+insert Abc 1234
+insert Abc 12345
+insert Abc 123456
+insert Abc 123454
+insert Abc 122
+insert Abc -1
+insert Abc 0
+insert Abc -2
+insert Abc 0
+find Abc
+
+10
+insert Bker 2021
+insert Bker 2025
+insert Bker 3000
+insert Bker 1000
+delete Bker 2021
+delete Bker 2025
+delete Bker 3000
+find Bker
+delete Bker 1000
+find Bker
+
+25
+insert aa 1
+insert ba 1
+insert ca 1
+insert da 1
+find aa
+delete aa 1
+find aa
+insert aa 1
+insert ab 1
+insert ac 1
+insert ad 1
+find aa
+delete aa 1
+find aa
+insert ae 1
+insert ea 1
+find ae
+find ea
+delete ae 1
+delete ea 1
+find ae
+insert ae 1
+insert af 1
+find ae
+find af
+
+24
+insert az 1
+insert az 2
+insert az 3
+insert az 4
+insert az 5
+insert az 6
+insert az 7
+insert aa 1
+insert aa 2
+insert aa 3
+insert aa 4
+insert aa 5
+insert aa 6
+insert aa 7
+insert ab 1
+insert ab 2
+insert ab 3
+insert ab 4
+insert ab 5
+insert ab 6
+insert ab 7
+find aa
+find ab
+find az

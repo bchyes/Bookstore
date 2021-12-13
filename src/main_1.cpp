@@ -11,8 +11,12 @@ class Invaild {
 };
 
 class People {
+protected:
+
 public:
     virtual void Su(string id, string pass_word);
+
+    virtual void Su(string id);
 
     virtual void Logout();
 
@@ -26,6 +30,8 @@ public:
 
     virtual void Show(string isbn, string name, string author, string keyword);
 
+    virtual void Show();
+
     virtual void Buy(string isbn, int quantity);
 
     virtual void Select(string isbn);
@@ -33,6 +39,18 @@ public:
     virtual void Modify(string isbn, string name, string author, string keyword, double price);
 
     virtual void Import(int quantity, double cost);
+
+    virtual void ReportMyself();
+
+    virtual void ShowFinance(int time);
+
+    virtual void ShowFinance();
+
+    virtual void ReportFinance();
+
+    virtual void ReportEmployee();
+
+    virtual void Log();
 };
 
 class Manager : public People {
@@ -44,6 +62,25 @@ public:
     virtual void Delete(string id) {
         throw Invaild();
     }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+    virtual void ShowFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
+        throw Invaild();
+    }
 };
 
 class Custom : public People {
@@ -53,6 +90,40 @@ public:
     }
 
     virtual void Delete(string id) {
+        throw Invaild();
+    }
+
+    virtual void Select(string isbn) {
+        throw Invaild();
+    }
+
+    virtual void Modify(string isbn, string name, string author, string keyword, double price) {
+        throw Invaild();
+    }
+
+    virtual void Import(int quantity, double cost) {
+        throw Invaild();
+    }
+
+    virtual void ReportMyself() {
+        throw Invaild();
+    }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+    virtual void ShowFinance() {
+        throw Invaild();
+    }
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
         throw Invaild();
     }
 };
@@ -74,34 +145,11 @@ public:
     virtual void Delete(string id) {
         throw Invaild();
     }
-};
 
-class BookManager : public Manager {
-
-};
-
-class BookEmployee : public Employee {
-
-};
-
-class BookCustom : public Custom {
-public:
-    virtual void Select(string isbn) {
-        throw Invaild();
-    }
-
-    virtual void Modify(string isbn, string name, string author, string keyword, double price) {
-        throw Invaild();
-    }
-
-    virtual void Import(int quantity, double cost) {
-        throw Invaild();
-    }
-};
-
-class BookVisitor : public Visitor {
-public:
     virtual void Show(string isbn, string name, string author, string keyword) {
+        throw Invaild();
+    }
+    virtual void Show(){
         throw Invaild();
     }
 
@@ -120,9 +168,32 @@ public:
     virtual void Import(int quantity, double cost) {
         throw Invaild();
     }
+
+    virtual void ReportMyself() {
+        throw Invaild();
+    }
+
+    virtual void ShowFinance(int time) {
+        throw Invaild();
+    }
+    virtual void ShowFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportFinance() {
+        throw Invaild();
+    }
+
+    virtual void ReportEmployee() {
+        throw Invaild();
+    }
+
+    virtual void Log() {
+        throw Invaild();
+    }
 };
 
-Expression getOrder(string s) {
+Expression GetOrder(string s) {
     if (s == "su") return su;
     if (s == "logout") return logout;
     if (s == "register") return register_;
@@ -147,7 +218,7 @@ int main() {
     string s;
     //initialze();
     cin >> s;
-    Expression exp = getOrder(s);
+    Expression exp = GetOrder(s);
     switch (exp) {
         case su:
             break;

@@ -57,27 +57,27 @@ include CMakeFiles/Bookstore.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Bookstore.dir/flags.make
 
-CMakeFiles/Bookstore.dir/main_1.cpp.o: CMakeFiles/Bookstore.dir/flags.make
-CMakeFiles/Bookstore.dir/main_1.cpp.o: ../main_1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Bookstore.dir/main_1.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bookstore.dir/main_1.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/main_1.cpp
+CMakeFiles/Bookstore.dir/src/main.cpp.o: CMakeFiles/Bookstore.dir/flags.make
+CMakeFiles/Bookstore.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Bookstore.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bookstore.dir/src/main.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp
 
-CMakeFiles/Bookstore.dir/main_1.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bookstore.dir/main_1.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/main_1.cpp > CMakeFiles/Bookstore.dir/main_1.cpp.i
+CMakeFiles/Bookstore.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bookstore.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp > CMakeFiles/Bookstore.dir/src/main.cpp.i
 
-CMakeFiles/Bookstore.dir/main_1.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bookstore.dir/main_1.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/main_1.cpp -o CMakeFiles/Bookstore.dir/main_1.cpp.s
+CMakeFiles/Bookstore.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bookstore.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp -o CMakeFiles/Bookstore.dir/src/main.cpp.s
 
 # Object files for target Bookstore
 Bookstore_OBJECTS = \
-"CMakeFiles/Bookstore.dir/main_1.cpp.o"
+"CMakeFiles/Bookstore.dir/src/main.cpp.o"
 
 # External object files for target Bookstore
 Bookstore_EXTERNAL_OBJECTS =
 
-Bookstore: CMakeFiles/Bookstore.dir/main_1.cpp.o
+Bookstore: CMakeFiles/Bookstore.dir/src/main.cpp.o
 Bookstore: CMakeFiles/Bookstore.dir/build.make
 Bookstore: CMakeFiles/Bookstore.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Bookstore"

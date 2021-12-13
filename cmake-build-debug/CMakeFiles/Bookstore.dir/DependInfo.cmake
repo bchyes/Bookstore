@@ -4,12 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/d/CLion/Bookstore-main/Bookstore/main_1.cpp" "/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles/Bookstore.dir/main_1.cpp.o"
+  "/mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp" "/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles/Bookstore.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../src"
   )
 
 # Targets to which this target links.

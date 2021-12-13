@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "Bookstore"
   "Bookstore.pdb"
-  "CMakeFiles/Bookstore.dir/main_1.cpp.o"
+  "CMakeFiles/Bookstore.dir/src/main.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

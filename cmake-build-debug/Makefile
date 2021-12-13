@@ -123,32 +123,32 @@ Bookstore/fast:
 	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/build
 .PHONY : Bookstore/fast
 
-main_1.o: main_1.cpp.o
+src/main.o: src/main.cpp.o
 
-.PHONY : main_1.o
+.PHONY : src/main.o
 
 # target to build an object file
-main_1.cpp.o:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/main_1.cpp.o
-.PHONY : main_1.cpp.o
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-main_1.i: main_1.cpp.i
+src/main.i: src/main.cpp.i
 
-.PHONY : main_1.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-main_1.cpp.i:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/main_1.cpp.i
-.PHONY : main_1.cpp.i
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-main_1.s: main_1.cpp.s
+src/main.s: src/main.cpp.s
 
-.PHONY : main_1.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-main_1.cpp.s:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/main_1.cpp.s
-.PHONY : main_1.cpp.s
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Bookstore"
-	@echo "... main_1.o"
-	@echo "... main_1.i"
-	@echo "... main_1.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/store.dir/src/main_template.cpp.o  -o store 

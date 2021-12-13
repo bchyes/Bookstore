@@ -1,0 +1,27 @@
+12
+insert aa name 123 1
+insert bb name 123 1
+insert cc name 1234 1
+insert dd name 12345 1
+find aa
+find bb
+find cc
+find dd
+delete aa name 123 1
+find aa
+delete dd name 12345 1
+find dd
+
+12
+insert aa name 123 1
+insert bb name 123 1
+insert cc name 1234 1
+insert dd name 12345 1
+find aa
+find bb
+find cc
+find dd
+delete aa
+find aa
+delete dd
+find dd
