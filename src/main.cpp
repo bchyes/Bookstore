@@ -1,7 +1,7 @@
 #include"store.h"
 #include"People.h"
 
-int CheckNum(string num) {
+int CheckNum(std::string num) {
     if (num.length() > 10) throw Invalid();
     if (num.length() == 10) if (num > "2147483647") throw Invalid();
     int ans = 0;
@@ -13,7 +13,7 @@ int CheckNum(string num) {
     return ans;
 }
 
-double CheckDouble(string num) {
+double CheckDouble(std::string num) {
     if (num.length() > 13) throw Invalid();
     bool dot = 0;
     for (int i = 0; i < num.length(); i++) {
@@ -28,11 +28,11 @@ double CheckDouble(string num) {
     return stod(num);
 }
 
-void CheckNull(string s) {
+void CheckNull(std::string s) {
     if (s != "") throw Invalid();
 }
 
-void GetModify(const string &op, string &type, string &infor) {
+void GetModify(const std::string &op, std::string &type, std::string &infor) {
     if (op[0] != '-') throw Invalid();
     int i;
     for (i = 1; i < op.length(); i++)
@@ -73,7 +73,7 @@ void GetModify(const string &op, string &type, string &infor) {
     }
 }
 
-void GetShow(const string &op, string &type, string &infor) {
+void GetShow(const std::string &op, std::string &type, std::string &infor) {
     if (op[0] != '-') throw Invalid();
     int i;
     for (i = 1; i < op.length(); i++)
@@ -109,7 +109,7 @@ void GetShow(const string &op, string &type, string &infor) {
 }
 
 //检查数字，字母，下划线
-void Check_(string s) {
+void Check_(std::string s) {
     if (s.length() > 30) throw Invalid();
     for (int i = 0; i < s.length(); i++) {
         if ((s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z') ||
@@ -120,14 +120,14 @@ void Check_(string s) {
 }
 
 //检查不可见字符
-void Check_See(string s) {
+void Check_See(std::string s) {
     if (s.length() > 30) throw Invalid();
     for (int i = 0; i < s.length(); i++) {
         if (int(s[i]) < 32 || int(s[i]) == 127) throw Invalid();
     }
 }
 
-void CheckIsbn(string s) {
+void CheckIsbn(std::string s) {
     if (s.length() > 20) throw Invalid();
     for (int i = 0; i < s.length(); i++) {
         if (int(s[i]) < 32 || int(s[i]) == 127) throw Invalid();
@@ -137,14 +137,14 @@ void CheckIsbn(string s) {
 int main() {
     freopen("test_robust.txt", "r", stdin);
     freopen("test_robust.out", "w", stdout);
-    string s;
+    std::string s;
     People *account = new Visitor;
     account->Initialize();
     int line = 0;
-    while (getline(cin, s)) {
+    while (getline(std::cin, s)) {
         line++;
         if (s.length() > 1024) {
-            cout << "Invalid" << '\n';
+            std::cout << "Invalid" << '\n';
             continue;
         }
         int i;
@@ -152,25 +152,25 @@ int main() {
             if (s[i] != ' ') break;
         }
         if (i == s.length()) continue;
-        s=s.substr(i);
+        s = s.substr(i);
         bool asc = 0;
         for (int i = 0; i < s.length(); i++) {
             if (!isascii(s[i])) {
-                cout << "Invalid" << '\n';
+                std::cout << "Invalid" << '\n';
                 asc = 1;
                 break;
             }
         }
         if (asc) continue;
         s += " ";
-        string token;
+        std::string token;
         token = Get(s);
         if (token == "su") {
             try {
-                string id = Get(s);
+                std::string id = Get(s);
                 Check_(id);
                 if (s != "") {
-                    string passwd = Get(s);
+                    std::string passwd = Get(s);
                     Check_(passwd);
                     CheckNull(s);
                     account->Su(id, passwd);
@@ -200,7 +200,7 @@ int main() {
                     }
                 }
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "logout") {
             try {
                 CheckNull(s);
@@ -226,67 +226,67 @@ int main() {
                     }
                 }
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "useradd") {
             try {
-                string id = Get(s);
+                std::string id = Get(s);
                 Check_(id);
-                string passwd = Get(s);
+                std::string passwd = Get(s);
                 Check_(passwd);
                 int priority = CheckNum(Get(s));
                 if (priority != 7 && priority != 3 && priority != 1) throw Invalid();
-                string name = Get(s);
+                std::string name = Get(s);
                 CheckNull(s);
                 Check_See(name);
                 account->Useradd(id, passwd, priority, name);
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "register") {
             try {
-                string id = Get(s);
+                std::string id = Get(s);
                 Check_(id);
-                string passwd = Get(s);
+                std::string passwd = Get(s);
                 Check_(passwd);
-                string name = Get(s);
+                std::string name = Get(s);
                 Check_See(name);
                 CheckNull(s);
                 account->Register(id, passwd, name);
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "delete") {
             try {
-                string id = Get(s);
+                std::string id = Get(s);
                 Check_(id);
                 CheckNull(s);
                 account->Delete(id);
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "passwd") {
             try {
-                string id = Get(s);
+                std::string id = Get(s);
                 Check_(id);
-                string passwd = Get(s);
+                std::string passwd = Get(s);
                 Check_(passwd);
                 if (s != "") {
-                    string new_passwd = Get(s);
+                    std::string new_passwd = Get(s);
                     Check_(new_passwd);
                     CheckNull(s);
                     account->Passwd(id, passwd, new_passwd);
                 } else {
                     account->Passwd(id, passwd);
                 }
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "select") {
             try {
-                string isbn = Get(s);
+                std::string isbn = Get(s);
                 CheckIsbn(isbn);
                 CheckNull(s);
                 account->Select(isbn);
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "show") {
             try {
                 ShowMessage mess;
-                string token_ = "";
+                std::string token_ = "";
                 if (s != "") {
                     token_ = Get(s);
                     if (token_ == "finance") {
@@ -303,9 +303,9 @@ int main() {
                 if (token_ != "")
                     s = token_ + " " + s;
                 if (s != "") {
-                    string op = Get(s);
+                    std::string op = Get(s);
                     CheckNull(s);
-                    string type, infor;
+                    std::string type, infor;
                     GetShow(op, type, infor);
                     if (type == "ISBN") {
                         strcpy(mess.isbn, infor.c_str());
@@ -318,22 +318,22 @@ int main() {
                     }
                 }
                 account->Show(mess);
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "buy") {
             try {
-                string isbn = Get(s);
+                std::string isbn = Get(s);
                 CheckIsbn(isbn);
                 int quantity = CheckNum(Get(s));
                 CheckNull(s);
                 account->Buy(isbn, quantity);
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "modify") {
             try {
                 bool isbn_ = 0, name_ = 0, author_ = 0, keyword_ = 0, price_ = 0;
-                string s_ = s;
+                std::string s_ = s;
                 while (s_ != "") {
-                    string op = Get(s_);
-                    string type, infor;
+                    std::string op = Get(s_);
+                    std::string type, infor;
                     GetModify(op, type, infor);
                     if (type == "ISBN") {
                         if (isbn_) throw Invalid();
@@ -346,10 +346,10 @@ int main() {
                         author_ = 1;
                     } else if (type == "keyword") {
                         if (keyword_) throw Invalid();
-                        vector<string> key;
+                        std::vector<std::string> key;
                         infor += "|";
                         while (infor != "") {
-                            string key_ = GetKey(infor);
+                            std::string key_ = GetKey(infor);
                             for (int i = 0; i < key.size(); i++)
                                 if (key_ == key[i]) throw Invalid();
                             key.push_back(key_);
@@ -361,8 +361,8 @@ int main() {
                     }
                 }
                 while (s != "") {
-                    string op = Get(s);
-                    string type, infor;
+                    std::string op = Get(s);
+                    std::string type, infor;
                     GetModify(op, type, infor);
                     if (type == "ISBN") {
                         account->ModifyIsbn(infor);
@@ -376,29 +376,29 @@ int main() {
                         account->ModifyPrice(stod(infor));
                     }
                 }
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "import") {
             try {
                 int quantity = CheckNum(Get(s));
                 double total_cost = CheckDouble(Get(s));
                 CheckNull(s);
                 account->Import(quantity, total_cost);
-            } catch (Invalid) { cout << "Invalid" << '\n'; }
+            } catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "exit") {
             try {
                 CheckNull(s);
                 delete account;
                 return 0;
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
         } else if (token == "quit") {
             try {
                 CheckNull(s);
                 delete account;
                 return 0;
             }
-            catch (Invalid) { cout << "Invalid" << '\n'; }
-        } else cout << "Invalid" << '\n';
+            catch (Invalid) { std::cout << "Invalid" << '\n'; }
+        } else std::cout << "Invalid" << '\n';
     }
     delete account;
 }

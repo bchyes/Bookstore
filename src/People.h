@@ -8,11 +8,11 @@ public:
     char password[32];
     int priority;
 
-    NodePeople() {
+    explicit NodePeople() {
         user_id[0] = '\0';
     }
 
-    NodePeople(string id, string name, string passwd, int prior) {
+    explicit NodePeople(std::string id, std::string name, std::string passwd, int prior) {
         strcpy(user_id, id.c_str());
         strcpy(user_name, name.c_str());
         strcpy(password, passwd.c_str());
@@ -20,23 +20,23 @@ public:
     }
 
     friend bool operator>(const NodePeople &a, const NodePeople &b) {
-        return (string(a.user_id) > string(b.user_id));
+        return (std::string(a.user_id) > std::string(b.user_id));
     }
 
     friend bool operator>=(const NodePeople &a, const NodePeople &b) {
-        return (string(a.user_id) >= string(b.user_id));
+        return (std::string(a.user_id) >= std::string(b.user_id));
     }
 
     friend bool operator==(const NodePeople &a, const NodePeople &b) {
-        return (string(a.user_id) == string(b.user_id));
+        return (std::string(a.user_id) == std::string(b.user_id));
     }
 
-    friend bool operator>=(const NodePeople &a, const string &b) {
-        return (string(a.user_id) >= b);
+    friend bool operator>=(const NodePeople &a, const std::string &b) {
+        return (std::string(a.user_id) >= b);
     }
 
-    friend bool operator==(const NodePeople &a, const string &b) {
-        return (string(a.user_id) == b);
+    friend bool operator==(const NodePeople &a, const std::string &b) {
+        return (std::string(a.user_id) == b);
     }
 
     NodePeople &operator=(const NodePeople &nod) {
@@ -48,8 +48,9 @@ public:
         return (*this);
     }
 
-    friend ostream &operator<<(ostream &os, const NodePeople &nod) {
-        os << string(nod.user_id) << " " << string(nod.user_name) << " " << string(nod.password) << " " << nod.priority
+    friend std::ostream &operator<<(std::ostream &os, const NodePeople &nod) {
+        os << std::string(nod.user_id) << " " << std::string(nod.user_name) << " " << std::string(nod.password) << " "
+           << nod.priority
            << '\n';
         return os;
     }
@@ -64,7 +65,7 @@ public:
     int quantity;
     double price;
 
-    NodeBook() {
+    explicit NodeBook() {
         isbn[0] = '\0';
         book_name[0] = '\0';
         author[0] = '\0';
@@ -72,7 +73,8 @@ public:
         quantity = price = 0;
     }
 
-    NodeBook(string isbn_, string name, string author_, string key, int quantity_, double price_) {
+    explicit NodeBook(std::string isbn_, std::string name, std::string author_, std::string key, int quantity_,
+                      double price_) {
         strcpy(isbn, isbn_.c_str());
         strcpy(book_name, name.c_str());
         strcpy(author, author_.c_str());
@@ -82,28 +84,28 @@ public:
     }
 
     bool operator>(const NodeBook &b) {
-        return (string(this->isbn) > string(b.isbn));
+        return (std::string(this->isbn) > std::string(b.isbn));
     }
 
     bool operator>=(const NodeBook &b) {
-        return (string(this->isbn) >= string(b.isbn));
+        return (std::string(this->isbn) >= std::string(b.isbn));
 
     }
 
     bool operator==(const NodeBook &b) {
-        return (string(this->isbn) == string(b.isbn));
+        return (std::string(this->isbn) == std::string(b.isbn));
     }
 
-    bool operator>=(const string &b) {
-        return (string(this->isbn) >= b);
+    bool operator>=(const std::string &b) {
+        return (std::string(this->isbn) >= b);
     }
 
-    bool operator>(const string &b) {
-        return (string(this->isbn) > b);
+    bool operator>(const std::string &b) {
+        return (std::string(this->isbn) > b);
     }
 
-    bool operator==(const string &b) {
-        return (string(this->isbn) == b);
+    bool operator==(const std::string &b) {
+        return (std::string(this->isbn) == b);
     }
 
     NodeBook &operator=(const NodeBook &nod) {
@@ -117,16 +119,18 @@ public:
         return (*this);
     }
 
-    friend ostream &operator<<(ostream &os, const NodeBook &nod) {
-        os << string(nod.isbn) << '\t' << string(nod.book_name) << '\t' << string(nod.author) << '\t'
-           << string(nod.keyword) << '\t' << fixed << setprecision(2) << nod.price << '\t' << nod.quantity << '\n';
+    friend std::ostream &operator<<(std::ostream &os, const NodeBook &nod) {
+        os << std::string(nod.isbn) << '\t' << std::string(nod.book_name) << '\t' << std::string(nod.author) << '\t'
+           << std::string(nod.keyword) << '\t' << std::fixed << std::setprecision(2) << nod.price << '\t'
+           << nod.quantity
+           << '\n';
         return os;
     }
 };
 
 class NodeBookName : public NodeBook {
 public:
-    NodeBookName() {
+    explicit NodeBookName() {
         isbn[0] = '\0';
         book_name[0] = '\0';
         author[0] = '\0';
@@ -134,7 +138,7 @@ public:
         quantity = price = 0;
     }
 
-    NodeBookName(const NodeBook &nod) {
+    explicit NodeBookName(const NodeBook &nod) {
         strcpy(this->isbn, nod.isbn);
         strcpy(this->book_name, nod.book_name);
         strcpy(this->author, nod.author);
@@ -144,30 +148,33 @@ public:
     }
 
     bool operator>(const NodeBookName &b) {
-        return (string(this->book_name) > string(b.book_name) ||
-                (string(this->book_name) == string(b.book_name) && string(this->isbn) > string(b.isbn)));
+        return (std::string(this->book_name) > std::string(b.book_name) ||
+                (std::string(this->book_name) == std::string(b.book_name) &&
+                 std::string(this->isbn) > std::string(b.isbn)));
     }
 
     bool operator>=(const NodeBookName &b) {
-        return (string(this->book_name) > string(b.book_name) ||
-                (string(this->book_name) == string(b.book_name) && string(this->isbn) >= string(b.isbn)));
+        return (std::string(this->book_name) > std::string(b.book_name) ||
+                (std::string(this->book_name) == std::string(b.book_name) &&
+                 std::string(this->isbn) >= std::string(b.isbn)));
 
     }
 
     bool operator==(const NodeBookName &b) {
-        return (string(this->book_name) == string(b.book_name) && string(this->isbn) == string(b.isbn));
+        return (std::string(this->book_name) == std::string(b.book_name) &&
+                std::string(this->isbn) == std::string(b.isbn));
     }
 
-    bool operator>=(const string &b) {
-        return (string(this->book_name) >= b);
+    bool operator>=(const std::string &b) {
+        return (std::string(this->book_name) >= b);
     }
 
-    bool operator>(const string &b) {
-        return (string(this->book_name) > b);
+    bool operator>(const std::string &b) {
+        return (std::string(this->book_name) > b);
     }
 
-    bool operator==(const string &b) {
-        return (string(this->book_name) == b);
+    bool operator==(const std::string &b) {
+        return (std::string(this->book_name) == b);
     }
 
     NodeBookName &operator=(const NodeBookName &nod) {
@@ -184,7 +191,7 @@ public:
 
 class NodeBookAuthor : public NodeBook {
 public:
-    NodeBookAuthor() {
+    explicit NodeBookAuthor() {
         isbn[0] = '\0';
         book_name[0] = '\0';
         author[0] = '\0';
@@ -192,7 +199,7 @@ public:
         quantity = price = 0;
     }
 
-    NodeBookAuthor(const NodeBook &nod) {
+    explicit NodeBookAuthor(const NodeBook &nod) {
         strcpy(this->isbn, nod.isbn);
         strcpy(this->book_name, nod.book_name);
         strcpy(this->author, nod.author);
@@ -202,30 +209,30 @@ public:
     }
 
     bool operator>(const NodeBookAuthor &b) {
-        return (string(this->author) > string(b.author) ||
-                (string(this->author) == string(b.author) && string(this->isbn) > string(b.isbn)));
+        return (std::string(this->author) > std::string(b.author) ||
+                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) > std::string(b.isbn)));
     }
 
     bool operator>=(const NodeBookAuthor &b) {
-        return (string(this->author) > string(b.author) ||
-                (string(this->author) == string(b.author) && string(this->isbn) >= string(b.isbn)));
+        return (std::string(this->author) > std::string(b.author) ||
+                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) >= std::string(b.isbn)));
 
     }
 
     bool operator==(const NodeBookAuthor &b) {
-        return (string(this->author) == string(b.author) && string(this->isbn) == string(b.isbn));
+        return (std::string(this->author) == std::string(b.author) && std::string(this->isbn) == std::string(b.isbn));
     }
 
-    bool operator>=(const string &b) {
-        return (string(this->author) >= b);
+    bool operator>=(const std::string &b) {
+        return (std::string(this->author) >= b);
     }
 
-    bool operator>(const string &b) {
-        return (string(this->author) > b);
+    bool operator>(const std::string &b) {
+        return (std::string(this->author) > b);
     }
 
-    bool operator==(const string &b) {
-        return (string(this->author) == b);
+    bool operator==(const std::string &b) {
+        return (std::string(this->author) == b);
     }
 
     NodeBookAuthor &operator=(const NodeBookAuthor &nod) {
@@ -244,7 +251,7 @@ class NodeBookKeyword : public NodeBook {
 public:
     char keyword_[62];
 
-    NodeBookKeyword() {
+    explicit NodeBookKeyword() {
         isbn[0] = '\0';
         book_name[0] = '\0';
         author[0] = '\0';
@@ -253,7 +260,7 @@ public:
         quantity = price = 0;
     }
 
-    NodeBookKeyword(const NodeBook &nod) {
+    explicit NodeBookKeyword(const NodeBook &nod) {
         strcpy(this->isbn, nod.isbn);
         strcpy(this->book_name, nod.book_name);
         strcpy(this->author, nod.author);
@@ -264,30 +271,33 @@ public:
     }
 
     bool operator>(const NodeBookKeyword &b) {
-        return (string(this->keyword_) > string(b.keyword_) ||
-                (string(this->keyword_) == string(b.keyword_) && string(this->isbn) > string(b.isbn)));
+        return (std::string(this->keyword_) > std::string(b.keyword_) ||
+                (std::string(this->keyword_) == std::string(b.keyword_) &&
+                 std::string(this->isbn) > std::string(b.isbn)));
     }
 
     bool operator>=(const NodeBookKeyword &b) {
-        return (string(this->keyword_) > string(b.keyword_) ||
-                (string(this->keyword_) == string(b.keyword_) && string(this->isbn) >= string(b.isbn)));
+        return (std::string(this->keyword_) > std::string(b.keyword_) ||
+                (std::string(this->keyword_) == std::string(b.keyword_) &&
+                 std::string(this->isbn) >= std::string(b.isbn)));
 
     }
 
     bool operator==(const NodeBookKeyword &b) {
-        return (string(this->keyword_) == string(b.keyword_) && string(this->isbn) == string(b.isbn));
+        return (std::string(this->keyword_) == std::string(b.keyword_) &&
+                std::string(this->isbn) == std::string(b.isbn));
     }
 
-    bool operator>=(const string &b) {
-        return (string(this->keyword_) >= b);
+    bool operator>=(const std::string &b) {
+        return (std::string(this->keyword_) >= b);
     }
 
-    bool operator>(const string &b) {
-        return (string(this->keyword_) > b);
+    bool operator>(const std::string &b) {
+        return (std::string(this->keyword_) > b);
     }
 
-    bool operator==(const string &b) {
-        return (string(this->keyword_) == b);
+    bool operator==(const std::string &b) {
+        return (std::string(this->keyword_) == b);
     }
 
     NodeBookKeyword &operator=(const NodeBookKeyword &nod) {
@@ -303,8 +313,8 @@ public:
     }
 };
 
-vector<NodePeople> stk;
-vector<NodeBook> stk_;
+std::vector<NodePeople> stk;
+std::vector<NodeBook> stk_;
 Store<NodeIndex_<NodePeople>, Block_<NodePeople>> file_people("file_people", "file_people_index", "file_people_delete");
 Store<NodeIndex_<NodeBook>, Block_<NodeBook>> file_book("file_book", "file_book_index", "file_book_delete");
 Store<NodeIndex_<NodeBookName>, Block_<NodeBookName>> file_name("file_name", "file_name_index", "file_name_delete");
@@ -334,10 +344,10 @@ struct ShowMessage {
     }
 };*/
 void FinanceInsert(double finance) {
-    fstream file;
+    std::fstream file;
     file.open("file_finance");
     if (!file) {
-        file.open("file_finance", fstream::out);
+        file.open("file_finance", std::fstream::out);
         file.close();
         file.open("file_finance");
         int time = 1;
@@ -351,26 +361,26 @@ void FinanceInsert(double finance) {
     time++;
     file.seekp(0);
     file.write(reinterpret_cast<char *>(&time), sizeof(int));
-    file.seekp(0, ios::end);
+    file.seekp(0, std::ios::end);
     file.write(reinterpret_cast<char *>(&finance), sizeof(double));
     file.close();
 }
 
-string GetKey(string &key) {
+std::string GetKey(std::string &key) {
     for (int i = 0; i < key.length(); i++) {
         if (key[i] == '|') {
-            string s_ = key.substr(0, i);
+            std::string s_ = key.substr(0, i);
             key = key.substr(i + 1);
             return s_;
         }
     }
 }
 
-string Get(string &s) {
+std::string Get(std::string &s) {
     if (s == "") throw Invalid();
     for (int i = 0; i < s.length(); i++) {
         if (s[i] == ' ') {
-            string s_ = s.substr(0, i);
+            std::string s_ = s.substr(0, i);
             int j;
             for (j = i + 1; j < s.length(); j++)
                 if (s[j] != ' ') break;
@@ -380,7 +390,7 @@ string Get(string &s) {
     }
 }
 
-long long CheckNum_(string num) {
+long long CheckNum_(std::string num) {
     long long ans = 0;
     for (int i = 0; i < num.length(); i++) {
         if (num[i] > '9' || num[i] < '0')
@@ -395,14 +405,15 @@ protected:
     NodeBook select;
 public:
     virtual ~People() {
-        if (select.isbn[0] != '\0') Select(string(select.isbn));
+        if (select.isbn[0] != '\0') Select(std::string(select.isbn));
     }
 
     virtual void Initialize() {
-        file_people.Initialize<NodePeople>({"root", "", "sjtu", 7});
+        NodePeople root("root", "", "sjtu", 7);
+        file_people.Initialize<NodePeople>(root);
     }
 
-    virtual void Su(string id, string password) {
+    virtual void Su(std::string id, std::string password) {
         NodePeople people = file_people.Find<NodePeople>(id);
         if (people.password == password) {
             stk.push_back(people);
@@ -410,7 +421,7 @@ public:
         } else throw Invalid();
     }
 
-    virtual void Su(string id) {
+    virtual void Su(std::string id) {
         if (stk.empty()) throw Invalid();
         NodePeople people = file_people.Find<NodePeople>(id);
         NodePeople peo = stk[stk.size() - 1];
@@ -427,17 +438,17 @@ public:
     virtual void GetSelect() {
         select = stk_[stk_.size() - 1];
         stk_.pop_back();
-        if (select.isbn[0] != '\0') select = file_book.Find<NodeBook>(string(select.isbn));
+        if (select.isbn[0] != '\0') select = file_book.Find<NodeBook>(std::string(select.isbn));
     }
 
-    virtual void Register(string id, string password, string user_name) {
+    virtual void Register(std::string id, std::string password, std::string user_name) {
         NodePeople people(id, user_name, password, 1);
         try {
             file_people.Insert(people);
         } catch (Invalid) { throw Invalid(); }
     }
 
-    virtual void Passwd(string id, string old_passwd, string new_passwd) {
+    virtual void Passwd(std::string id, std::string old_passwd, std::string new_passwd) {
         try {
             NodePeople people = file_people.Find<NodePeople>(id);
             if (people.password == old_passwd) {
@@ -448,7 +459,7 @@ public:
         } catch (Invalid) { throw Invalid(); }
     }
 
-    virtual void Passwd(string id, string new_passwd) {
+    virtual void Passwd(std::string id, std::string new_passwd) {
         try {
             NodePeople people = file_people.Find<NodePeople>(id);
             strcpy(people.password, new_passwd.c_str());
@@ -457,7 +468,7 @@ public:
         } catch (Invalid) { throw Invalid(); }
     }
 
-    virtual void Useradd(string id, string password, int priority, string user_name) {
+    virtual void Useradd(std::string id, std::string password, int priority, std::string user_name) {
         NodePeople now_people = stk[stk.size() - 1];
         if (priority >= now_people.priority) throw Invalid();
         NodePeople people(id, user_name, password, priority);
@@ -466,7 +477,7 @@ public:
         } catch (Invalid) { throw Invalid(); }
     }
 
-    virtual void Delete(string id) {
+    virtual void Delete(std::string id) {
         for (int i = 0; i < stk.size(); i++)
             if (stk[i].user_id == id)
                 throw Invalid();
@@ -477,34 +488,34 @@ public:
 
     virtual void Show(ShowMessage infor) {
         try {
-            if (select.isbn[0] != '\0') Select(string(select.isbn));
+            if (select.isbn[0] != '\0') Select(std::string(select.isbn));
             if (infor.isbn[0] != '\0') {
-                NodeBook book = file_book.Find<NodeBook>(string(infor.isbn));
+                NodeBook book = file_book.Find<NodeBook>(std::string(infor.isbn));
                 if (infor.book_name[0] != '\0') {
-                    if (string(book.book_name) != string(infor.book_name))
+                    if (std::string(book.book_name) != std::string(infor.book_name))
                         throw Invalid();
                 }
                 if (infor.author[0] != '\0') {
-                    if (string(book.author) != string(infor.author))
+                    if (std::string(book.author) != std::string(infor.author))
                         throw Invalid();
                 }
                 if (infor.keyword[0] != '\0') {
-                    string keyword = string(book.keyword);
+                    std::string keyword = std::string(book.keyword);
                     keyword += "|";
                     while (keyword != "") {
-                        string keyword_ = GetKey(keyword);
-                        if (keyword_ == string(infor.keyword)) {
-                            cout << book;
+                        std::string keyword_ = GetKey(keyword);
+                        if (keyword_ == std::string(infor.keyword)) {
+                            std::cout << book;
                             return;
                         }
                     }
                     throw Invalid();
                 }
-                cout << book;
+                std::cout << book;
             } else if (infor.book_name[0] != '\0') {
-                string ans = file_name.FindMore(string(infor.book_name));
+                std::string ans = file_name.FindMore(std::string(infor.book_name));
                 bool ok = 0;
-                fstream file;
+                std::fstream file;
                 file.open("file_name");
                 while (ans != "") {
                     Block_<NodeBookName> block;
@@ -512,23 +523,23 @@ public:
                     file.seekg(locate);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBookName>));
                     for (int i = 1; i <= block.now; i++) {
-                        if (string(block.size[i].book_name) != string(infor.book_name))
+                        if (std::string(block.size[i].book_name) != std::string(infor.book_name))
                             continue;
                         if (infor.author[0] != '\0')
-                            if (string(block.size[i].author) != string(infor.author))
+                            if (std::string(block.size[i].author) != std::string(infor.author))
                                 continue;
                         if (infor.keyword[0] != '\0') {
-                            string keyword = string(block.size[i].keyword);
+                            std::string keyword = std::string(block.size[i].keyword);
                             keyword += "|";
                             while (keyword != "") {
-                                string keyword_ = GetKey(keyword);
-                                if (keyword_ == string(infor.keyword)) {
-                                    cout << block.size[i];
+                                std::string keyword_ = GetKey(keyword);
+                                if (keyword_ == std::string(infor.keyword)) {
+                                    std::cout << block.size[i];
                                     ok = 1;
                                 }
                             }
                         } else {
-                            cout << block.size[i];
+                            std::cout << block.size[i];
                             ok = 1;
                         }
                     }
@@ -536,30 +547,30 @@ public:
                 file.close();
                 if (!ok) throw Invalid();
             } else if (infor.author[0] != '\0') {
-                string ans = file_author.FindMore(string(infor.author));
+                std::string ans = file_author.FindMore(std::string(infor.author));
                 bool ok = 0;
-                fstream file;
+                std::fstream file;
                 file.open("file_author");
                 while (ans != "") {
                     Block_<NodeBookAuthor> block;
                     long long locate = CheckNum_(Get(ans));
-                    file.seekg(locate, ios::beg);
+                    file.seekg(locate, std::ios::beg);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBookAuthor>));
                     for (int i = 1; i <= block.now; i++) {
-                        if (string(block.size[i].author) != string(infor.author))
+                        if (std::string(block.size[i].author) != std::string(infor.author))
                             continue;
                         if (infor.keyword[0] != '\0') {
-                            string keyword = string(block.size[i].keyword);
+                            std::string keyword = std::string(block.size[i].keyword);
                             keyword += "|";
                             while (keyword != "") {
-                                string keyword_ = GetKey(keyword);
-                                if (keyword_ == string(infor.keyword)) {
-                                    cout << block.size[i];
+                                std::string keyword_ = GetKey(keyword);
+                                if (keyword_ == std::string(infor.keyword)) {
+                                    std::cout << block.size[i];
                                     ok = 1;
                                 }
                             }
                         } else {
-                            cout << block.size[i];
+                            std::cout << block.size[i];
                             ok = 1;
                         }
                     }
@@ -567,9 +578,9 @@ public:
                 file.close();
                 if (!ok) throw Invalid();
             } else if (infor.keyword[0] != '\0') {
-                string ans = file_keyword.FindMore(string(infor.keyword));
+                std::string ans = file_keyword.FindMore(std::string(infor.keyword));
                 bool ok = 0;
-                fstream file;
+                std::fstream file;
                 file.open("file_keyword");
                 while (ans != "") {
                     Block_<NodeBookKeyword> block;
@@ -577,8 +588,8 @@ public:
                     file.seekg(locate);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBookKeyword>));
                     for (int i = 1; i <= block.now; i++) {
-                        if (string(block.size[i].keyword_) == string(infor.keyword)) {
-                            cout << block.size[i];
+                        if (std::string(block.size[i].keyword_) == std::string(infor.keyword)) {
+                            std::cout << block.size[i];
                             ok = 1;
                         }
                     }
@@ -586,7 +597,7 @@ public:
                 file.close();
                 if (!ok) throw Invalid();
             } else {
-                fstream file, file_index;
+                std::fstream file, file_index;
                 file.open("file_book");
                 file_index.open("file_book_index");
                 NodeIndex_<NodeBook> idx;
@@ -597,40 +608,40 @@ public:
                     file_index.close();
                     throw Invalid();
                 }
-                file_index.seekg(idx.next, ios::beg);
+                file_index.seekg(idx.next, std::ios::beg);
                 file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex_<NodeBook>));
                 while (1) {
                     file.seekg(idx.block_begin);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBook>));
                     for (int i = 1; i <= block.now; i++)
-                        cout << block.size[i];
+                        std::cout << block.size[i];
                     if (idx.next == -1) {
                         file.close();
                         file_index.close();
                         return;
                     }
-                    file_index.seekg(idx.next, ios::beg);
+                    file_index.seekg(idx.next, std::ios::beg);
                     file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex_<NodeBook>));
                 }
             }
-        } catch (Invalid) { cout << '\n'; }
+        } catch (Invalid) { std::cout << '\n'; }
     }
 
-    virtual void Buy(string isbn, int quantity) {
+    virtual void Buy(std::string isbn, int quantity) {
         try {
-            if (string(select.isbn) != isbn) {
+            if (std::string(select.isbn) != isbn) {
                 NodeBook find_book = file_book.Find<NodeBook>(isbn);
                 if (find_book.quantity >= quantity) {
                     file_book.Delete(isbn);
-                    NodeBookName book_name = find_book;
+                    NodeBookName book_name(find_book);
                     file_name.Delete(book_name);
-                    NodeBookAuthor book_author = find_book;
+                    NodeBookAuthor book_author(find_book);
                     file_author.Delete(book_author);
-                    NodeBookKeyword book_key = find_book;
-                    string keyword = string(find_book.keyword);
+                    NodeBookKeyword book_key(find_book);
+                    std::string keyword = std::string(find_book.keyword);
                     keyword += "|";
                     while (keyword != "") {
-                        string keyword_ = GetKey(keyword);
+                        std::string keyword_ = GetKey(keyword);
                         strcpy(book_key.keyword_, keyword_.c_str());
                         file_keyword.Delete(book_key);
                     }
@@ -641,20 +652,20 @@ public:
                     book_author.quantity -= quantity;
                     file_author.Insert(book_author);
                     book_key.quantity -= quantity;
-                    keyword = string(book_key.keyword);
+                    keyword = std::string(book_key.keyword);
                     keyword += "|";
                     while (keyword != "") {
-                        string keyword_ = GetKey(keyword);
+                        std::string keyword_ = GetKey(keyword);
                         strcpy(book_key.keyword_, keyword_.c_str());
                         file_keyword.Insert(book_key);
                     }
-                    cout << fixed << setprecision(2) << quantity * find_book.price << '\n';
+                    std::cout << std::fixed << std::setprecision(2) << quantity * find_book.price << '\n';
                     FinanceInsert(quantity * find_book.price);
                 } else throw Invalid();
             } else {
                 if (select.quantity >= quantity) {
                     select.quantity -= quantity;
-                    cout << fixed << setprecision(2) << quantity * select.price << '\n';
+                    std::cout << std::fixed << std::setprecision(2) << quantity * select.price << '\n';
                     FinanceInsert(quantity * select.price);
                 } else throw Invalid();
             }
@@ -662,48 +673,48 @@ public:
         } catch (Invalid) { throw Invalid(); }
     }
 
-    virtual void Select(string isbn) {
+    virtual void Select(std::string isbn) {
         try {
             if (select.isbn[0] != '\0') {
-                NodeBook book = file_book.Find<NodeBook>(string(select.isbn));
-                file_book.Delete(string(select.isbn));
+                NodeBook book = file_book.Find<NodeBook>(std::string(select.isbn));
+                file_book.Delete(std::string(select.isbn));
                 file_book.Insert(select);
-                NodeBookName book_name = book;
+                NodeBookName book_name(book);
                 file_name.Delete(book_name);
-                book_name = select;
+                book_name = NodeBookName(select);
                 file_name.Insert(book_name);
-                NodeBookAuthor book_author = book;
+                NodeBookAuthor book_author(book);
                 file_author.Delete(book_author);
-                book_author = select;
+                book_author = NodeBookAuthor(select);
                 file_author.Insert(book_author);
-                NodeBookKeyword book_key = book;
-                string keyword = string(book.keyword);
+                NodeBookKeyword book_key(book);
+                std::string keyword = std::string(book.keyword);
                 keyword += "|";
                 while (keyword != "") {
-                    string keyword_ = GetKey(keyword);
+                    std::string keyword_ = GetKey(keyword);
                     strcpy(book_key.keyword_, keyword_.c_str());
                     file_keyword.Delete(book_key);
                 }
-                book_key = select;
-                keyword = string(select.keyword);
+                book_key = NodeBookKeyword(select);
+                keyword = std::string(select.keyword);
                 keyword += "|";
                 while (keyword != "") {
-                    string keyword_ = GetKey(keyword);
+                    std::string keyword_ = GetKey(keyword);
                     strcpy(book_key.keyword_, keyword_.c_str());
                     file_keyword.Insert(book_key);
                 }
             }
         } catch (Invalid) {
             file_book.Insert(select);
-            NodeBookName book_name = select;
+            NodeBookName book_name(select);
             file_name.Insert(book_name);
-            NodeBookAuthor book_author = select;
+            NodeBookAuthor book_author(select);
             file_author.Insert(book_author);
-            NodeBookKeyword book_key = select;
-            string keyword = string(select.keyword);
+            NodeBookKeyword book_key(select);
+            std::string keyword = std::string(select.keyword);
             keyword += "|";
             while (keyword != "") {
-                string keyword_ = GetKey(keyword);
+                std::string keyword_ = GetKey(keyword);
                 strcpy(book_key.keyword_, keyword_.c_str());
                 file_keyword.Insert(book_key);
             }
@@ -724,8 +735,8 @@ public:
         }
     }
 
-    virtual void ModifyIsbn(string isbn) {
-        if (select.isbn[0] == '\0' || string(select.isbn) == isbn)
+    virtual void ModifyIsbn(std::string isbn) {
+        if (select.isbn[0] == '\0' || std::string(select.isbn) == isbn)
             throw Invalid();
         bool ok = 0;
         try {
@@ -733,21 +744,21 @@ public:
             ok = 1;
         } catch (Invalid) {
             try {
-                file_book.Delete(string(select.isbn));
-                NodeBookName book_name = select;
+                file_book.Delete(std::string(select.isbn));
+                NodeBookName book_name(select);
                 file_name.Delete(book_name);
-                NodeBookAuthor book_author = select;
-                file_name.Delete(book_author);
-                NodeBookKeyword book_key = select;
-                string keyword = string(select.keyword);
+                NodeBookAuthor book_author(select);
+                file_author.Delete(book_author);
+                NodeBookKeyword book_key(select);
+                std::string keyword = std::string(select.keyword);
                 keyword += "|";
                 while (keyword != "") {
-                    string keyword_ = GetKey(keyword);
+                    std::string keyword_ = GetKey(keyword);
                     strcpy(book_key.keyword_, keyword_.c_str());
                     file_keyword.Delete(book_key);
                 }
                 for (int i = 0; i < stk_.size(); i++) {
-                    if (string(stk_[i].isbn) == string(select.isbn)) {
+                    if (std::string(stk_[i].isbn) == std::string(select.isbn)) {
                         strcpy(stk_[i].isbn, isbn.c_str());
                     }
                 }
@@ -755,7 +766,7 @@ public:
             }
             catch (Invalid) {
                 for (int i = 0; i < stk_.size(); i++) {
-                    if (string(stk_[i].isbn) == string(select.isbn)) {
+                    if (std::string(stk_[i].isbn) == std::string(select.isbn)) {
                         strcpy(stk_[i].isbn, isbn.c_str());
                     }
                 }
@@ -765,19 +776,19 @@ public:
         if (ok) throw Invalid();
     }
 
-    virtual void ModifyName(string name) {
+    virtual void ModifyName(std::string name) {
         if (select.isbn[0] == '\0')
             throw Invalid();
         strcpy(select.book_name, name.c_str());
     }
 
-    virtual void ModifyAuthor(string author) {
+    virtual void ModifyAuthor(std::string author) {
         if (select.isbn[0] == '\0')
             throw Invalid();
         strcpy(select.author, author.c_str());
     }
 
-    virtual void ModifyKeyword(string keyword) {
+    virtual void ModifyKeyword(std::string keyword) {
         if (select.isbn[0] == '\0')
             throw Invalid();
         strcpy(select.keyword, keyword.c_str());
@@ -804,10 +815,10 @@ public:
 
     virtual void ShowFinance(int time) {
         if (!time) {
-            cout << '\n';
+            std::cout << '\n';
             return;
         }
-        fstream file;
+        std::fstream file;
         file.open("file_finance");
         if (!file)
             throw Invalid();
@@ -821,15 +832,16 @@ public:
             if (finance > 0) finance_plus += finance;
             else finance_minus -= finance;
         }
-        cout << "+ " << fixed << setprecision(2) << finance_plus << " - " << fixed << setprecision(2) << finance_minus
-             << '\n';
+        std::cout << "+ " << std::fixed << std::setprecision(2) << finance_plus << " - " << std::fixed << std::setprecision(2)
+                  << finance_minus
+                  << '\n';
     }
 
     virtual void ShowFinance() {
-        fstream file;
+        std::fstream file;
         file.open("file_finance");
         if (!file) {
-            cout << '\n';
+            std::cout << '\n';
             return;
         }
         int time_;
@@ -841,8 +853,10 @@ public:
             if (finance > 0) finance_plus += finance;
             else finance_minus -= finance;
         }
-        cout << "+ " << fixed << setprecision(2) << finance_plus << " - " << fixed << setprecision(2) << finance_minus
-             << '\n';
+        std::cout << "+ " << std::fixed << std::setprecision(2) << finance_plus << " - " << std::fixed
+                  << std::setprecision(2)
+                  << finance_minus
+                  << '\n';
     }
 
     virtual void ReportFinance() {
@@ -864,11 +878,11 @@ public:
 
 class Employee : public People {
 public:
-    virtual void Passwd(string id, string new_passwd) {
+    virtual void Passwd(std::string id, std::string new_passwd) {
         throw Invalid();
     }
 
-    virtual void Delete(string id) {
+    virtual void Delete(std::string id) {
         throw Invalid();
     }
 
@@ -895,35 +909,35 @@ public:
 
 class Consumer : public People {
 public:
-    virtual void Passwd(string id, string new_passwd) {
+    virtual void Passwd(std::string id, std::string new_passwd) {
         throw Invalid();
     }
 
-    virtual void Useradd(string id, string pass_word, int priority, string user_name) {
+    virtual void Useradd(std::string id, std::string pass_word, int priority, std::string user_name) {
         throw Invalid();
     }
 
-    virtual void Delete(string id) {
+    virtual void Delete(std::string id) {
         throw Invalid();
     }
 
-    virtual void Select(string isbn) {
+    virtual void Select(std::string isbn) {
         throw Invalid();
     }
 
-    virtual void ModifyIsbn(string isbn) {
+    virtual void ModifyIsbn(std::string isbn) {
         throw Invalid();
     }
 
-    virtual void ModifyName(string name) {
+    virtual void ModifyName(std::string name) {
         throw Invalid();
     }
 
-    virtual void ModifyAuthor(string author) {
+    virtual void ModifyAuthor(std::string author) {
         throw Invalid();
     }
 
-    virtual void ModifyKeyword(string keyword) {
+    virtual void ModifyKeyword(std::string keyword) {
         throw Invalid();
     }
 
@@ -966,19 +980,19 @@ public:
         throw Invalid();
     }
 
-    virtual void Passwd(string id, string old_passwd, string new_passed) {
+    virtual void Passwd(std::string id, std::string old_passwd, std::string new_passed) {
         throw Invalid();
     }
 
-    virtual void Passwd(string id, string new_passwd) {
+    virtual void Passwd(std::string id, std::string new_passwd) {
         throw Invalid();
     }
 
-    virtual void Useradd(string id, string pass_word, int priority, string user_name) {
+    virtual void Useradd(std::string id, std::string pass_word, int priority, std::string user_name) {
         throw Invalid();
     }
 
-    virtual void Delete(string id) {
+    virtual void Delete(std::string id) {
         throw Invalid();
     }
 
@@ -986,27 +1000,27 @@ public:
         throw Invalid();
     }
 
-    virtual void Buy(string isbn, int quantity) {
+    virtual void Buy(std::string isbn, int quantity) {
         throw Invalid();
     }
 
-    virtual void Select(string isbn) {
+    virtual void Select(std::string isbn) {
         throw Invalid();
     }
 
-    virtual void ModifyIsbn(string isbn) {
+    virtual void ModifyIsbn(std::string isbn) {
         throw Invalid();
     }
 
-    virtual void ModifyName(string name) {
+    virtual void ModifyName(std::string name) {
         throw Invalid();
     }
 
-    virtual void ModifyAuthor(string author) {
+    virtual void ModifyAuthor(std::string author) {
         throw Invalid();
     }
 
-    virtual void ModifyKeyword(string keyword) {
+    virtual void ModifyKeyword(std::string keyword) {
         throw Invalid();
     }
 

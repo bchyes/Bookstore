@@ -17,6 +17,14 @@ People.h
 /mnt/d/CLion/Bookstore-main/Bookstore/src/store.h
 fstream
 -
-bits/stdc++.h
+vector
+-
+queue
+-
+iostream
+-
+cstring
+-
+iomanip
 -
 
