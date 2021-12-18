@@ -289,7 +289,7 @@ public:
         throw Invaild();
     }
 
-    virtual void Show(ShowMessage infor) {
+    virtual void Show(const string &type,string message) {
         throw Invaild();
     }
 
