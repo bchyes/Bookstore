@@ -1,0 +1,18 @@
+su root sjtu
+useradd w w 3 3
+useradd q q 3 3
+select 1
+su w
+select 2
+su q
+select 3
+modify -author="bch"
+show -ISBN=3
+logout
+modify -author="bch"
+show -ISBN=2
+logout
+modify -author="bch"
+show -ISBN=1
+logout 
+exit

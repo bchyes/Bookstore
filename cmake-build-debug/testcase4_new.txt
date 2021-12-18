@@ -1,0 +1,22 @@
+su root sjtu
+select 9787559609303
+modify -ISBN=9787559609304
+modify -name="Thompson-Patrick"
+select 9787559609304
+modify -keyword="Stephens-Moore|WilkinsLLC" -price=50 -author="Weaver-Moreno"
+select 9787544287722
+modify -name="McclainLLC" -keyword="RogersGroup|OconnorandSons" -author="Atkins-Summers" -price=45.00
+show -ISBN=9787559609304
+select 9787559410443
+modify -name="FoxInc" -keyword="RogersGroup|Irwin-Atkinson" -author="Anderson-Yang" -price=38
+import 5 50
+select 9787559609304
+import 10 100
+select 9787544287722
+import 15 150
+show -name="Rodriguez,BakerandMartinez"
+show -name="Thompson-Patrick"
+show -keyword="RogersGroup"
+show
+logout
+exit

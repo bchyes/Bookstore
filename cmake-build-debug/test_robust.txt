@@ -1,0 +1,52 @@
+su root sjtu
+select abc
+select 2
+show fibi
+modify -price=21.312323131313131313
+modify xx yy
+import 2147483647 1
+import 1 23.1323123131313131313
+modify -author="ab"chd"
+modify -author="abchd" -author="123"
+show -author="abchd"
+show -author="abchd" -keyword="123"
+modify -author=""
+modify -keyword="abc|abd"
+show -keyword="abc"
+useradd a a 3 a
+useradd a b 3 b
+import 1 1
+show -keyword="ab
+show -keyword=ab"
+show -keyword="	"
+show -keyword"中国"
+su a
+select 2
+modify -ISBN=3
+modify -author="abc"
+logout
+show -ISBN=3
+modify -author="bcd"
+show -ISBN=3
+show
+su a
+su a a
+su a	
+logout
+logout
+useradd b b 4 b
+useradd aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b 3 b
+useradd aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b 3 b
+useradd  b b   3 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa     abc
+useradd ri    gi    3  m
+useradd b b 1 abc  
+show  finance
+show   finance  0
+show       finance     1
+show finance   2
+                       
+show
+
+show
+   show
+show

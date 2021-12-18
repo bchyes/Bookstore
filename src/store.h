@@ -6,12 +6,17 @@
 
 using namespace std;
 
-class Invaild {
+class Invalid {
 };
-
+template<class Node>
+void swap_(Node &a,Node &b){
+    Node tmp=a;
+    a=b;
+    b=tmp;
+}
 template<class Node>
 struct Block_ {
-    static const int maxn = 3;
+    static const int maxn = 320;
     Node size[maxn + 2];
     int now = 0;
 };
@@ -38,6 +43,8 @@ class Store {
     string file_delete_name;
 public:
     Store(string file_name_, string file_index_name_, string file_delete_name_) {
+        while (!del.empty()) del.pop();
+        while (!del_index.empty()) del_index.pop();
         file_name = file_name_;
         file_index_name = file_index_name_;
         file_delete_name = file_delete_name_;
@@ -65,7 +72,7 @@ public:
         long long num = del.size();
         file_delete.write(reinterpret_cast<char *>(&num), sizeof(long long));
         for (int i = 1; i <= num; i++) {
-            int det = del.front(), det_index = del_index.front();
+            long long det = del.front(), det_index = del_index.front();
             del.pop();
             del_index.pop();
             file_delete.write(reinterpret_cast<char *>(&det), sizeof(long long));
@@ -128,9 +135,9 @@ public:
             if (idx.end == nod) {
                 file.close();
                 file_index.close();
-                throw Invaild();
+                throw Invalid();
             }
-            if (idx.end > nod) break;
+            if (idx.end >= nod) break;
             else {
                 if (idx.next == -1) break;
                 file_index.seekg(idx.next, ios::beg);
@@ -141,6 +148,7 @@ public:
         if (idx.pre == -1 && idx.next == -1) {
             NodeIndex head;
             head.next = del_index.front();
+            file_index.seekp(0);
             file_index.write(reinterpret_cast<char *>(&head), sizeof(NodeIndex));
             blo.now = 1;
             blo.size[blo.now] = nod;
@@ -165,12 +173,12 @@ public:
             if (blo.size[i] == nod) {
                 file.close();
                 file_index.close();
-                throw Invaild();
+                throw Invalid();
             }
             if (blo.size[i] > nod) break;
         }
         for (int j = blo.now - 1; j >= i; j--) {
-            swap(blo.size[j + 1], blo.size[j]);
+            swap_(blo.size[j + 1], blo.size[j]);
         }
         if (blo.now <= blo.maxn) {
             if (i == blo.now) {
@@ -222,7 +230,7 @@ public:
             idx.end = blo.size[blo.now];
             blo_new.now = blo.maxn - blo.now + 1;
             for (int i = blo.now + 1; i <= blo.maxn + 1; i++)
-                blo_new.size[i - blo.now] = blo.size[i];//
+                blo_new.size[i - blo.now] = blo.size[i];
             idx_new.end = blo_new.size[blo_new.now];
             file_index.seekp(idx_new.pre);
             file_index.write(reinterpret_cast<char *>(&idx), sizeof(NodeIndex));
@@ -242,7 +250,7 @@ public:
         file.open(file_name);
         file_index.open(file_index_name);
         if (!file)
-            throw Invaild();
+            throw Invalid();
         file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex));
         while (1) {
             if (idx.end >= index) break;
@@ -250,7 +258,7 @@ public:
                 if (idx.next == -1) {
                     file.close();
                     file_index.close();
-                    throw Invaild();
+                    throw Invalid();
                 }
                 file_index.seekg(idx.next, ios::beg);
                 file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex));
@@ -267,7 +275,7 @@ public:
         }
         file.close();
         file_index.close();
-        throw Invaild();
+        throw Invalid();
     }
 
     string FindMore(string index) {
@@ -285,15 +293,13 @@ public:
                     return "";
                 }
                 file_index.seekg(idx.next, ios::beg);
-                now_index = idx.next;
                 file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex));
             }
         }
         file.seekg(idx.block_begin, ios::beg);
         file.read(reinterpret_cast<char *>(&blo), sizeof(Block));
         string ans = "";
-        ans += to_string(now_index) + " ";
-        now_index = idx.next;
+        ans += to_string(idx.block_begin) + " ";
         bool more = 0;
         while (idx.end == index && idx.next != -1) {
             more = 1;
@@ -302,11 +308,10 @@ public:
             file.seekg(idx.block_begin, ios::beg);
             file.read(reinterpret_cast<char *>(&blo), sizeof(Block));
             if (idx.end > index || idx.next == -1) break;
-            ans += to_string(now_index) + " ";
-            now_index = idx.next;
+            ans += to_string(idx.block_begin) + " ";
         }
         if (more)
-            ans += to_string(now_index) + " ";
+            ans += to_string(idx.block_begin) + " ";
         file.close();
         file_index.close();
         return ans;
@@ -317,7 +322,7 @@ public:
         file.open(file_name);
         file_index.open(file_index_name);
         if (!file)
-            throw Invaild();
+            throw Invalid();
         file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex));
         while (1) {
             if (idx.end >= nod) break;
@@ -325,7 +330,7 @@ public:
                 if (idx.next == -1) {
                     file.close();
                     file_index.close();
-                    throw Invaild();
+                    throw Invalid();
                 }
             }
             file_index.seekg(idx.next, ios::beg);
@@ -365,10 +370,10 @@ public:
         if (i == blo.now + 1) {
             file.close();
             file_index.close();
-            throw Invaild();
+            throw Invalid();
         }
         for (int j = i; j <= blo.now - 1; j++)
-            swap(blo.size[j], blo.size[j + 1]);
+            swap_(blo.size[j], blo.size[j + 1]);
         if (i == blo.now) {
             idx.end = blo.size[blo.now - 1];
             file_index.seekp(now_index);

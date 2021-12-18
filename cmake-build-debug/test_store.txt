@@ -1,0 +1,11 @@
+su root sjtu
+select 1
+modify -author="MckenzieWhite"
+select 2
+modify -author="MckenzieWhite"
+select 3
+modify -author="MckenzieWhite"
+select 4
+modify -author="MckenzieWhite"
+show -author="MckenzieWhite"
+exit

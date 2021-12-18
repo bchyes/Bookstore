@@ -40,6 +40,7 @@ public:
     }
 
     NodePeople &operator=(const NodePeople &nod) {
+        if (this == &nod) return (*this);
         strcpy(this->user_id, nod.user_id);
         strcpy(this->user_name, nod.user_name);
         strcpy(this->password, nod.password);
@@ -105,7 +106,8 @@ public:
         return (string(this->isbn) == b);
     }
 
-    virtual NodeBook &operator=(const NodeBook &nod) {
+    NodeBook &operator=(const NodeBook &nod) {
+        if (this == &nod) return (*this);
         strcpy(this->isbn, nod.isbn);
         strcpy(this->book_name, nod.book_name);
         strcpy(this->author, nod.author);
@@ -167,6 +169,17 @@ public:
     bool operator==(const string &b) {
         return (string(this->book_name) == b);
     }
+
+    NodeBookName &operator=(const NodeBookName &nod) {
+        if (this == &nod) return (*this);
+        strcpy(this->isbn, nod.isbn);
+        strcpy(this->book_name, nod.book_name);
+        strcpy(this->author, nod.author);
+        strcpy(this->keyword, nod.keyword);
+        this->quantity = nod.quantity;
+        this->price = nod.price;
+        return (*this);
+    }
 };
 
 class NodeBookAuthor : public NodeBook {
@@ -194,7 +207,7 @@ public:
     }
 
     bool operator>=(const NodeBookAuthor &b) {
-        return (string(this->author) >= string(b.author) ||
+        return (string(this->author) > string(b.author) ||
                 (string(this->author) == string(b.author) && string(this->isbn) >= string(b.isbn)));
 
     }
@@ -214,6 +227,17 @@ public:
     bool operator==(const string &b) {
         return (string(this->author) == b);
     }
+
+    NodeBookAuthor &operator=(const NodeBookAuthor &nod) {
+        if (this == &nod) return (*this);
+        strcpy(this->isbn, nod.isbn);
+        strcpy(this->book_name, nod.book_name);
+        strcpy(this->author, nod.author);
+        strcpy(this->keyword, nod.keyword);
+        this->quantity = nod.quantity;
+        this->price = nod.price;
+        return (*this);
+    }
 };
 
 class NodeBookKeyword : public NodeBook {
@@ -225,6 +249,7 @@ public:
         book_name[0] = '\0';
         author[0] = '\0';
         keyword[0] = '\0';
+        keyword_[0] = '\0';
         quantity = price = 0;
     }
 
@@ -233,6 +258,7 @@ public:
         strcpy(this->book_name, nod.book_name);
         strcpy(this->author, nod.author);
         strcpy(this->keyword, nod.keyword);
+        this->keyword_[0] = '\0';
         this->quantity = nod.quantity;
         this->price = nod.price;
     }
@@ -243,7 +269,7 @@ public:
     }
 
     bool operator>=(const NodeBookKeyword &b) {
-        return (string(this->keyword_) >= string(b.keyword_) ||
+        return (string(this->keyword_) > string(b.keyword_) ||
                 (string(this->keyword_) == string(b.keyword_) && string(this->isbn) >= string(b.isbn)));
 
     }
@@ -263,9 +289,22 @@ public:
     bool operator==(const string &b) {
         return (string(this->keyword_) == b);
     }
+
+    NodeBookKeyword &operator=(const NodeBookKeyword &nod) {
+        if (this == &nod) return (*this);
+        strcpy(this->isbn, nod.isbn);
+        strcpy(this->book_name, nod.book_name);
+        strcpy(this->author, nod.author);
+        strcpy(this->keyword, nod.keyword);
+        strcpy(this->keyword_, nod.keyword_);
+        this->quantity = nod.quantity;
+        this->price = nod.price;
+        return (*this);
+    }
 };
 
 vector<NodePeople> stk;
+vector<NodeBook> stk_;
 Store<NodeIndex_<NodePeople>, Block_<NodePeople>> file_people("file_people", "file_people_index", "file_people_delete");
 Store<NodeIndex_<NodeBook>, Block_<NodeBook>> file_book("file_book", "file_book_index", "file_book_delete");
 Store<NodeIndex_<NodeBookName>, Block_<NodeBookName>> file_name("file_name", "file_name_index", "file_name_delete");
@@ -288,9 +327,38 @@ struct ShowMessage {
     }
 };
 
+/*struct FinanceMessage{
+    char message[32];
+    FinanceMessage(){
+        message[0]='\0';
+    }
+};*/
+void FinanceInsert(double finance) {
+    fstream file;
+    file.open("file_finance");
+    if (!file) {
+        file.open("file_finance", fstream::out);
+        file.close();
+        file.open("file_finance");
+        int time = 1;
+        file.write(reinterpret_cast<char *>(&time), sizeof(int));
+        file.write(reinterpret_cast<char *>(&finance), sizeof(double));
+        file.close();
+        return;
+    }
+    int time;
+    file.read(reinterpret_cast<char *>(&time), sizeof(int));
+    time++;
+    file.seekp(0);
+    file.write(reinterpret_cast<char *>(&time), sizeof(int));
+    file.seekp(0, ios::end);
+    file.write(reinterpret_cast<char *>(&finance), sizeof(double));
+    file.close();
+}
+
 string GetKey(string &key) {
     for (int i = 0; i < key.length(); i++) {
-        if (key[i] == ' ') {
+        if (key[i] == '|') {
             string s_ = key.substr(0, i);
             key = key.substr(i + 1);
             return s_;
@@ -299,11 +367,14 @@ string GetKey(string &key) {
 }
 
 string Get(string &s) {
-    if (s == "") throw Invaild();
+    if (s == "") throw Invalid();
     for (int i = 0; i < s.length(); i++) {
         if (s[i] == ' ') {
             string s_ = s.substr(0, i);
-            s = s.substr(i + 1);
+            int j;
+            for (j = i + 1; j < s.length(); j++)
+                if (s[j] != ' ') break;
+            s = s.substr(j);
             return s_;
         }
     }
@@ -313,7 +384,7 @@ long long CheckNum_(string num) {
     long long ans = 0;
     for (int i = 0; i < num.length(); i++) {
         if (num[i] > '9' || num[i] < '0')
-            throw Invaild();
+            throw Invalid();
         else ans = ans * 10 + (long long) (num[i] - '0');
     }
     return ans;
@@ -323,6 +394,10 @@ class People {
 protected:
     NodeBook select;
 public:
+    virtual ~People() {
+        if (select.isbn[0] != '\0') Select(string(select.isbn));
+    }
+
     virtual void Initialize() {
         file_people.Initialize<NodePeople>({"root", "", "sjtu", 7});
     }
@@ -331,30 +406,35 @@ public:
         NodePeople people = file_people.Find<NodePeople>(id);
         if (people.password == password) {
             stk.push_back(people);
-        } else throw Invaild();
+            stk_.push_back(select);
+        } else throw Invalid();
     }
 
     virtual void Su(string id) {
-        if (stk.empty()) throw Invaild();
+        if (stk.empty()) throw Invalid();
         NodePeople people = file_people.Find<NodePeople>(id);
         NodePeople peo = stk[stk.size() - 1];
-        if (peo.priority >= people.priority) {
+        if (peo.priority > people.priority) {
             stk.push_back(people);
-        } else throw Invaild();
+            stk_.push_back(select);
+        } else throw Invalid();
     }
 
     virtual void Logout() {
-        if (stk.empty()) {
-            throw Invaild();
-        } else
-            stk.pop_back();
+        stk.pop_back();
+    }
+
+    virtual void GetSelect() {
+        select = stk_[stk_.size() - 1];
+        stk_.pop_back();
+        if (select.isbn[0] != '\0') select = file_book.Find<NodeBook>(string(select.isbn));
     }
 
     virtual void Register(string id, string password, string user_name) {
         NodePeople people(id, user_name, password, 1);
         try {
             file_people.Insert(people);
-        } catch (Invaild) { throw Invaild(); }
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Passwd(string id, string old_passwd, string new_passwd) {
@@ -364,8 +444,8 @@ public:
                 strcpy(people.password, new_passwd.c_str());
                 file_people.Delete(id);
                 file_people.Insert(people);
-            } else throw Invaild();
-        } catch (Invaild) { throw Invaild(); }
+            } else throw Invalid();
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Passwd(string id, string new_passwd) {
@@ -374,43 +454,43 @@ public:
             strcpy(people.password, new_passwd.c_str());
             file_people.Delete(id);
             file_people.Insert(people);
-        } catch (Invaild) { throw Invaild(); }
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Useradd(string id, string password, int priority, string user_name) {
         NodePeople now_people = stk[stk.size() - 1];
-        if (priority >= now_people.priority) throw Invaild();
+        if (priority >= now_people.priority) throw Invalid();
         NodePeople people(id, user_name, password, priority);
         try {
             file_people.Insert(people);
-        } catch (Invaild) { throw Invaild(); }
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Delete(string id) {
         for (int i = 0; i < stk.size(); i++)
             if (stk[i].user_id == id)
-                throw Invaild();
+                throw Invalid();
         try {
             file_people.Delete(id);
-        } catch (Invaild) { throw Invaild(); }
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Show(ShowMessage infor) {
         try {
-            Select(select.isbn);
+            if (select.isbn[0] != '\0') Select(string(select.isbn));
             if (infor.isbn[0] != '\0') {
                 NodeBook book = file_book.Find<NodeBook>(string(infor.isbn));
                 if (infor.book_name[0] != '\0') {
                     if (string(book.book_name) != string(infor.book_name))
-                        throw Invaild();
+                        throw Invalid();
                 }
                 if (infor.author[0] != '\0') {
                     if (string(book.author) != string(infor.author))
-                        throw Invaild();
+                        throw Invalid();
                 }
                 if (infor.keyword[0] != '\0') {
                     string keyword = string(book.keyword);
-                    keyword += " ";
+                    keyword += "|";
                     while (keyword != "") {
                         string keyword_ = GetKey(keyword);
                         if (keyword_ == string(infor.keyword)) {
@@ -418,14 +498,15 @@ public:
                             return;
                         }
                     }
-                    throw Invaild();
+                    throw Invalid();
                 }
+                cout << book;
             } else if (infor.book_name[0] != '\0') {
                 string ans = file_name.FindMore(string(infor.book_name));
                 bool ok = 0;
                 fstream file;
+                file.open("file_name");
                 while (ans != "") {
-                    file.open("file_name");
                     Block_<NodeBookName> block;
                     long long locate = CheckNum_(Get(ans));
                     file.seekg(locate);
@@ -438,7 +519,7 @@ public:
                                 continue;
                         if (infor.keyword[0] != '\0') {
                             string keyword = string(block.size[i].keyword);
-                            keyword += " ";
+                            keyword += "|";
                             while (keyword != "") {
                                 string keyword_ = GetKey(keyword);
                                 if (keyword_ == string(infor.keyword)) {
@@ -446,27 +527,30 @@ public:
                                     ok = 1;
                                 }
                             }
+                        } else {
+                            cout << block.size[i];
+                            ok = 1;
                         }
                     }
                 }
                 file.close();
-                if (!ok) throw Invaild();
+                if (!ok) throw Invalid();
             } else if (infor.author[0] != '\0') {
                 string ans = file_author.FindMore(string(infor.author));
                 bool ok = 0;
                 fstream file;
+                file.open("file_author");
                 while (ans != "") {
-                    file.open("file_author");
                     Block_<NodeBookAuthor> block;
                     long long locate = CheckNum_(Get(ans));
-                    file.seekg(locate);
+                    file.seekg(locate, ios::beg);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBookAuthor>));
                     for (int i = 1; i <= block.now; i++) {
                         if (string(block.size[i].author) != string(infor.author))
                             continue;
                         if (infor.keyword[0] != '\0') {
                             string keyword = string(block.size[i].keyword);
-                            keyword += " ";
+                            keyword += "|";
                             while (keyword != "") {
                                 string keyword_ = GetKey(keyword);
                                 if (keyword_ == string(infor.keyword)) {
@@ -474,28 +558,33 @@ public:
                                     ok = 1;
                                 }
                             }
+                        } else {
+                            cout << block.size[i];
+                            ok = 1;
                         }
                     }
                 }
                 file.close();
-                if (!ok) throw Invaild();
+                if (!ok) throw Invalid();
             } else if (infor.keyword[0] != '\0') {
                 string ans = file_keyword.FindMore(string(infor.keyword));
                 bool ok = 0;
                 fstream file;
+                file.open("file_keyword");
                 while (ans != "") {
-                    file.open("file_keyword");
                     Block_<NodeBookKeyword> block;
                     long long locate = CheckNum_(Get(ans));
                     file.seekg(locate);
                     file.read(reinterpret_cast<char *>(&block), sizeof(Block_<NodeBookKeyword>));
                     for (int i = 1; i <= block.now; i++) {
-                        if (string(block.size[i].keyword) == string(infor.keyword))
+                        if (string(block.size[i].keyword_) == string(infor.keyword)) {
                             cout << block.size[i];
+                            ok = 1;
+                        }
                     }
                 }
                 file.close();
-                if (!ok) throw Invaild();
+                if (!ok) throw Invalid();
             } else {
                 fstream file, file_index;
                 file.open("file_book");
@@ -506,7 +595,7 @@ public:
                 if (idx.next == -1) {
                     file.close();
                     file_index.close();
-                    throw Invaild();
+                    throw Invalid();
                 }
                 file_index.seekg(idx.next, ios::beg);
                 file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex_<NodeBook>));
@@ -524,18 +613,53 @@ public:
                     file_index.read(reinterpret_cast<char *>(&idx), sizeof(NodeIndex_<NodeBook>));
                 }
             }
-        } catch (Invaild) { throw Invaild(); }
+        } catch (Invalid) { cout << '\n'; }
     }
 
     virtual void Buy(string isbn, int quantity) {
         try {
             if (string(select.isbn) != isbn) {
                 NodeBook find_book = file_book.Find<NodeBook>(isbn);
-                file_book.Delete(isbn);
-                find_book.quantity += quantity;
-                file_book.Insert(find_book);
-            } else select.quantity += quantity;
-        } catch (Invaild) { throw Invaild(); }
+                if (find_book.quantity >= quantity) {
+                    file_book.Delete(isbn);
+                    NodeBookName book_name = find_book;
+                    file_name.Delete(book_name);
+                    NodeBookAuthor book_author = find_book;
+                    file_author.Delete(book_author);
+                    NodeBookKeyword book_key = find_book;
+                    string keyword = string(find_book.keyword);
+                    keyword += "|";
+                    while (keyword != "") {
+                        string keyword_ = GetKey(keyword);
+                        strcpy(book_key.keyword_, keyword_.c_str());
+                        file_keyword.Delete(book_key);
+                    }
+                    find_book.quantity -= quantity;
+                    file_book.Insert(find_book);
+                    book_name.quantity -= quantity;
+                    file_name.Insert(book_name);
+                    book_author.quantity -= quantity;
+                    file_author.Insert(book_author);
+                    book_key.quantity -= quantity;
+                    keyword = string(book_key.keyword);
+                    keyword += "|";
+                    while (keyword != "") {
+                        string keyword_ = GetKey(keyword);
+                        strcpy(book_key.keyword_, keyword_.c_str());
+                        file_keyword.Insert(book_key);
+                    }
+                    cout << fixed << setprecision(2) << quantity * find_book.price << '\n';
+                    FinanceInsert(quantity * find_book.price);
+                } else throw Invalid();
+            } else {
+                if (select.quantity >= quantity) {
+                    select.quantity -= quantity;
+                    cout << fixed << setprecision(2) << quantity * select.price << '\n';
+                    FinanceInsert(quantity * select.price);
+                } else throw Invalid();
+            }
+
+        } catch (Invalid) { throw Invalid(); }
     }
 
     virtual void Select(string isbn) {
@@ -548,15 +672,13 @@ public:
                 file_name.Delete(book_name);
                 book_name = select;
                 file_name.Insert(book_name);
-                cout << file_name.Find<NodeBookName>(string(book_name.book_name));
                 NodeBookAuthor book_author = book;
                 file_author.Delete(book_author);
                 book_author = select;
                 file_author.Insert(book_author);
-                cout << file_author.Find<NodeBookAuthor>(string(book_author.author));
                 NodeBookKeyword book_key = book;
                 string keyword = string(book.keyword);
-                keyword += " ";
+                keyword += "|";
                 while (keyword != "") {
                     string keyword_ = GetKey(keyword);
                     strcpy(book_key.keyword_, keyword_.c_str());
@@ -564,34 +686,30 @@ public:
                 }
                 book_key = select;
                 keyword = string(select.keyword);
-                keyword += " ";
+                keyword += "|";
                 while (keyword != "") {
                     string keyword_ = GetKey(keyword);
                     strcpy(book_key.keyword_, keyword_.c_str());
                     file_keyword.Insert(book_key);
                 }
-                cout << file_keyword.Find<NodeBookKeyword>(string(book_key.keyword_));
             }
-        } catch (Invaild) {
+        } catch (Invalid) {
             file_book.Insert(select);
             NodeBookName book_name = select;
             file_name.Insert(book_name);
-            cout << file_name.Find<NodeBookName>(string(book_name.book_name));
             NodeBookAuthor book_author = select;
             file_author.Insert(book_author);
-            cout << file_author.Find<NodeBookAuthor>(string(book_author.author));
             NodeBookKeyword book_key = select;
             string keyword = string(select.keyword);
-            keyword += " ";
+            keyword += "|";
             while (keyword != "") {
                 string keyword_ = GetKey(keyword);
-                strcpy(book_key.keyword, keyword_.c_str());
+                strcpy(book_key.keyword_, keyword_.c_str());
                 file_keyword.Insert(book_key);
             }
-            cout << file_keyword.Find<NodeBookKeyword>(string(book_key.keyword_));
             try {
                 select = file_book.Find<NodeBook>(isbn);
-            } catch (Invaild) {
+            } catch (Invalid) {
                 NodeBook new_book;
                 select = new_book;
                 strcpy(select.isbn, isbn.c_str());
@@ -599,7 +717,7 @@ public:
         }
         try {
             select = file_book.Find<NodeBook>(isbn);
-        } catch (Invaild) {
+        } catch (Invalid) {
             NodeBook new_book;
             select = new_book;
             strcpy(select.isbn, isbn.c_str());
@@ -607,39 +725,77 @@ public:
     }
 
     virtual void ModifyIsbn(string isbn) {
-        if (select.isbn[0] == '\0')
-            throw Invaild();
-        strcpy(select.isbn, isbn.c_str());
+        if (select.isbn[0] == '\0' || string(select.isbn) == isbn)
+            throw Invalid();
+        bool ok = 0;
+        try {
+            file_book.Find<NodeBook>(isbn);
+            ok = 1;
+        } catch (Invalid) {
+            try {
+                file_book.Delete(string(select.isbn));
+                NodeBookName book_name = select;
+                file_name.Delete(book_name);
+                NodeBookAuthor book_author = select;
+                file_name.Delete(book_author);
+                NodeBookKeyword book_key = select;
+                string keyword = string(select.keyword);
+                keyword += "|";
+                while (keyword != "") {
+                    string keyword_ = GetKey(keyword);
+                    strcpy(book_key.keyword_, keyword_.c_str());
+                    file_keyword.Delete(book_key);
+                }
+                for (int i = 0; i < stk_.size(); i++) {
+                    if (string(stk_[i].isbn) == string(select.isbn)) {
+                        strcpy(stk_[i].isbn, isbn.c_str());
+                    }
+                }
+                strcpy(select.isbn, isbn.c_str());
+            }
+            catch (Invalid) {
+                for (int i = 0; i < stk_.size(); i++) {
+                    if (string(stk_[i].isbn) == string(select.isbn)) {
+                        strcpy(stk_[i].isbn, isbn.c_str());
+                    }
+                }
+                strcpy(select.isbn, isbn.c_str());
+            }
+        }
+        if (ok) throw Invalid();
     }
 
     virtual void ModifyName(string name) {
         if (select.isbn[0] == '\0')
-            throw Invaild();
+            throw Invalid();
         strcpy(select.book_name, name.c_str());
     }
 
     virtual void ModifyAuthor(string author) {
         if (select.isbn[0] == '\0')
-            throw Invaild();
+            throw Invalid();
         strcpy(select.author, author.c_str());
     }
 
     virtual void ModifyKeyword(string keyword) {
         if (select.isbn[0] == '\0')
-            throw Invaild();
+            throw Invalid();
         strcpy(select.keyword, keyword.c_str());
     }
 
     virtual void ModifyPrice(double price) {
         if (select.isbn[0] == '\0')
-            throw Invaild();
+            throw Invalid();
         select.price = price;
     }
 
     virtual void Import(int quantity, double cost) {
         if (select.isbn[0] == '\0')
-            throw Invaild();
+            throw Invalid();
+        if ((long long) (select.quantity) + (long long) (quantity) > 2147483647)
+            throw Invalid();
         select.quantity += quantity;
+        FinanceInsert(-1 * cost);
     }
 
     virtual void ReportMyself() {
@@ -647,11 +803,46 @@ public:
     }
 
     virtual void ShowFinance(int time) {
-
+        if (!time) {
+            cout << '\n';
+            return;
+        }
+        fstream file;
+        file.open("file_finance");
+        if (!file)
+            throw Invalid();
+        int time_;
+        file.read(reinterpret_cast<char *>(&time_), sizeof(int));
+        if (time_ < time) throw Invalid();
+        file.seekg(sizeof(int) + sizeof(double) * (time_ - time));
+        double finance_plus = 0, finance_minus = 0, finance;
+        for (int i = 1; i <= time; i++) {
+            file.read(reinterpret_cast<char *>(&finance), sizeof(double));
+            if (finance > 0) finance_plus += finance;
+            else finance_minus -= finance;
+        }
+        cout << "+ " << fixed << setprecision(2) << finance_plus << " - " << fixed << setprecision(2) << finance_minus
+             << '\n';
     }
 
     virtual void ShowFinance() {
-
+        fstream file;
+        file.open("file_finance");
+        if (!file) {
+            cout << '\n';
+            return;
+        }
+        int time_;
+        file.read(reinterpret_cast<char *>(&time_), sizeof(int));
+        file.seekg(sizeof(int));
+        double finance_plus = 0, finance_minus = 0, finance;
+        for (int i = 1; i <= time_; i++) {
+            file.read(reinterpret_cast<char *>(&finance), sizeof(double));
+            if (finance > 0) finance_plus += finance;
+            else finance_minus -= finance;
+        }
+        cout << "+ " << fixed << setprecision(2) << finance_plus << " - " << fixed << setprecision(2) << finance_minus
+             << '\n';
     }
 
     virtual void ReportFinance() {
@@ -674,177 +865,181 @@ public:
 class Employee : public People {
 public:
     virtual void Passwd(string id, string new_passwd) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Delete(string id) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance(int time) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportEmployee() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Log() {
-        throw Invaild();
+        throw Invalid();
     }
 };
 
 class Consumer : public People {
 public:
     virtual void Passwd(string id, string new_passwd) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Useradd(string id, string pass_word, int priority, string user_name) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Delete(string id) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Select(string isbn) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyIsbn(string isbn) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyName(string name) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyAuthor(string author) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyKeyword(string keyword) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyPrice(double price) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Import(int quantity, double cost) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportMyself() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance(int time) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportEmployee() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Log() {
-        throw Invaild();
+        throw Invalid();
     }
 };
 
 class Visitor : public People {
 public:
+    virtual void Logout() {
+        throw Invalid();
+    }
+
     virtual void Passwd(string id, string old_passwd, string new_passed) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Passwd(string id, string new_passwd) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Useradd(string id, string pass_word, int priority, string user_name) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Delete(string id) {
-        throw Invaild();
+        throw Invalid();
     }
 
-    virtual void Show(string isbn, string name, string author, string keyword) {
-        throw Invaild();
+    virtual void Show(ShowMessage infor) {
+        throw Invalid();
     }
 
     virtual void Buy(string isbn, int quantity) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Select(string isbn) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyIsbn(string isbn) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyName(string name) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyAuthor(string author) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyKeyword(string keyword) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ModifyPrice(double price) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Import(int quantity, double cost) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportMyself() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance(int time) {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ShowFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportFinance() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void ReportEmployee() {
-        throw Invaild();
+        throw Invalid();
     }
 
     virtual void Log() {
-        throw Invaild();
+        throw Invalid();
     }
 };
 
