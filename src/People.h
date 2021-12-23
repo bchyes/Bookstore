@@ -1,315 +1,67 @@
 #ifndef MAIN_1_CPP_PEOPLE_H
 #define MAIN_1_CPP_PEOPLE_H
 
-class NodePeople {
+class EmployeeLog {
 public:
-    char user_id[32];
-    char user_name[32];
-    char password[32];
-    int priority;
+    char type[22];
+    char op[102];
+    int time;
+    char name[62];
 
-    explicit NodePeople() {
-        user_id[0] = '\0';
+    explicit EmployeeLog() {
+        type[0] = '\0';
+        op[0] = '\0';
+        time = 0;
+        name[0] = '\0';
     }
 
-    explicit NodePeople(std::string id, std::string name, std::string passwd, int prior) {
-        strcpy(user_id, id.c_str());
-        strcpy(user_name, name.c_str());
-        strcpy(password, passwd.c_str());
-        priority = prior;
+    explicit EmployeeLog(const EmployeeLog &nod) {
+        strcpy(this->type, nod.type);
+        strcpy(this->op, nod.op);
+        strcpy(this->name, nod.name);
+        this->time = nod.time;
     }
 
-    friend bool operator>(const NodePeople &a, const NodePeople &b) {
-        return (std::string(a.user_id) > std::string(b.user_id));
+    bool operator>(const EmployeeLog &b) {
+        return (std::string(this->name) > std::string(b.name) ||
+                (std::string(this->name) == std::string(b.name) &&
+                 this->time > b.time));
     }
 
-    friend bool operator>=(const NodePeople &a, const NodePeople &b) {
-        return (std::string(a.user_id) >= std::string(b.user_id));
+    bool operator>=(const EmployeeLog &b) {
+        return (std::string(this->name) > std::string(b.name) ||
+                (std::string(this->name) == std::string(b.name) &&
+                 this->time >= b.time));
     }
 
-    friend bool operator==(const NodePeople &a, const NodePeople &b) {
-        return (std::string(a.user_id) == std::string(b.user_id));
+    bool operator==(const EmployeeLog &b) {
+        return ((std::string(this->name) == std::string(b.name) && this->time == b.time));
     }
 
-    friend bool operator>=(const NodePeople &a, const std::string &b) {
-        return (std::string(a.user_id) >= b);
+    bool operator>=(const std::string &b) {
+        return (std::string(this->name) >= b);
     }
 
-    friend bool operator==(const NodePeople &a, const std::string &b) {
-        return (std::string(a.user_id) == b);
+    bool operator>(const std::string &b) {
+        return (std::string(this->name) > b);
     }
 
-    NodePeople &operator=(const NodePeople &nod) {
+    bool operator==(const std::string &b) {
+        return (std::string(this->name) == b);
+    }
+
+    EmployeeLog &operator=(const EmployeeLog &nod) {
         if (this == &nod) return (*this);
-        strcpy(this->user_id, nod.user_id);
-        strcpy(this->user_name, nod.user_name);
-        strcpy(this->password, nod.password);
-        this->priority = nod.priority;
+        strcpy(this->type, nod.type);
+        strcpy(this->op, nod.op);
+        strcpy(this->name, nod.name);
+        this->time = nod.time;
         return (*this);
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const NodePeople &nod) {
-        os << std::string(nod.user_id) << " " << std::string(nod.user_name) << " " << std::string(nod.password) << " "
-           << nod.priority
-           << '\n';
+    friend std::ostream &operator<<(std::ostream &os, const EmployeeLog &nod) {
+        os << std::string(nod.type) << "\t" << std::string(nod.op) << '\n';
         return os;
-    }
-};
-
-class NodeBook {
-public:
-    char isbn[22];
-    char book_name[62];
-    char author[62];
-    char keyword[62];
-    int quantity;
-    double price;
-
-    explicit NodeBook() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
-
-    explicit NodeBook(std::string isbn_, std::string name, std::string author_, std::string key, int quantity_,
-                      double price_) {
-        strcpy(isbn, isbn_.c_str());
-        strcpy(book_name, name.c_str());
-        strcpy(author, author_.c_str());
-        strcpy(keyword, key.c_str());
-        quantity = quantity_;
-        price = price_;
-    }
-
-    bool operator>(const NodeBook &b) {
-        return (std::string(this->isbn) > std::string(b.isbn));
-    }
-
-    bool operator>=(const NodeBook &b) {
-        return (std::string(this->isbn) >= std::string(b.isbn));
-
-    }
-
-    bool operator==(const NodeBook &b) {
-        return (std::string(this->isbn) == std::string(b.isbn));
-    }
-
-    bool operator>=(const std::string &b) {
-        return (std::string(this->isbn) >= b);
-    }
-
-    bool operator>(const std::string &b) {
-        return (std::string(this->isbn) > b);
-    }
-
-    bool operator==(const std::string &b) {
-        return (std::string(this->isbn) == b);
-    }
-
-    NodeBook &operator=(const NodeBook &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const NodeBook &nod) {
-        os << std::string(nod.isbn) << '\t' << std::string(nod.book_name) << '\t' << std::string(nod.author) << '\t'
-           << std::string(nod.keyword) << '\t' << std::fixed << std::setprecision(2) << nod.price << '\t'
-           << nod.quantity
-           << '\n';
-        return os;
-    }
-};
-
-class NodeBookName : public NodeBook {
-public:
-    explicit NodeBookName() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
-
-    explicit NodeBookName(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
-
-    bool operator>(const NodeBookName &b) {
-        return (std::string(this->book_name) > std::string(b.book_name) ||
-                (std::string(this->book_name) == std::string(b.book_name) &&
-                 std::string(this->isbn) > std::string(b.isbn)));
-    }
-
-    bool operator>=(const NodeBookName &b) {
-        return (std::string(this->book_name) > std::string(b.book_name) ||
-                (std::string(this->book_name) == std::string(b.book_name) &&
-                 std::string(this->isbn) >= std::string(b.isbn)));
-
-    }
-
-    bool operator==(const NodeBookName &b) {
-        return (std::string(this->book_name) == std::string(b.book_name) &&
-                std::string(this->isbn) == std::string(b.isbn));
-    }
-
-    bool operator>=(const std::string &b) {
-        return (std::string(this->book_name) >= b);
-    }
-
-    bool operator>(const std::string &b) {
-        return (std::string(this->book_name) > b);
-    }
-
-    bool operator==(const std::string &b) {
-        return (std::string(this->book_name) == b);
-    }
-
-    NodeBookName &operator=(const NodeBookName &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
-};
-
-class NodeBookAuthor : public NodeBook {
-public:
-    explicit NodeBookAuthor() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
-
-    explicit NodeBookAuthor(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
-
-    bool operator>(const NodeBookAuthor &b) {
-        return (std::string(this->author) > std::string(b.author) ||
-                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) > std::string(b.isbn)));
-    }
-
-    bool operator>=(const NodeBookAuthor &b) {
-        return (std::string(this->author) > std::string(b.author) ||
-                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) >= std::string(b.isbn)));
-
-    }
-
-    bool operator==(const NodeBookAuthor &b) {
-        return (std::string(this->author) == std::string(b.author) && std::string(this->isbn) == std::string(b.isbn));
-    }
-
-    bool operator>=(const std::string &b) {
-        return (std::string(this->author) >= b);
-    }
-
-    bool operator>(const std::string &b) {
-        return (std::string(this->author) > b);
-    }
-
-    bool operator==(const std::string &b) {
-        return (std::string(this->author) == b);
-    }
-
-    NodeBookAuthor &operator=(const NodeBookAuthor &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
-};
-
-class NodeBookKeyword : public NodeBook {
-public:
-    char keyword_[62];
-
-    explicit NodeBookKeyword() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        keyword_[0] = '\0';
-        quantity = price = 0;
-    }
-
-    explicit NodeBookKeyword(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->keyword_[0] = '\0';
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
-
-    bool operator>(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) > std::string(b.keyword_) ||
-                (std::string(this->keyword_) == std::string(b.keyword_) &&
-                 std::string(this->isbn) > std::string(b.isbn)));
-    }
-
-    bool operator>=(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) > std::string(b.keyword_) ||
-                (std::string(this->keyword_) == std::string(b.keyword_) &&
-                 std::string(this->isbn) >= std::string(b.isbn)));
-
-    }
-
-    bool operator==(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) == std::string(b.keyword_) &&
-                std::string(this->isbn) == std::string(b.isbn));
-    }
-
-    bool operator>=(const std::string &b) {
-        return (std::string(this->keyword_) >= b);
-    }
-
-    bool operator>(const std::string &b) {
-        return (std::string(this->keyword_) > b);
-    }
-
-    bool operator==(const std::string &b) {
-        return (std::string(this->keyword_) == b);
-    }
-
-    NodeBookKeyword &operator=(const NodeBookKeyword &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        strcpy(this->keyword_, nod.keyword_);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
     }
 };
 
@@ -322,6 +74,21 @@ Store<NodeIndex_<NodeBookAuthor>, Block_<NodeBookAuthor>> file_author("file_auth
                                                                       "file_author_delete");
 Store<NodeIndex_<NodeBookKeyword>, Block_<NodeBookKeyword>> file_keyword("file_keyword", "file_keyword_index",
                                                                          "file_keyword_delete");
+Store<NodeIndex_<EmployeeLog>, Block_<EmployeeLog>> file_employee("file_employee", "file_employee_index",
+                                                                  "file_employee_delete");
+
+void AddEmployeeMessage(EmployeeLog message) {
+    std::fstream file;
+    file.open("file_employee_all");
+    if (!file) {
+        file.open("file_employee_all", std::fstream::out);
+        file.close();
+        file.open("file_employee_all");
+    }
+    file.seekp(0, std::ios::end);
+    std::cout << message;
+    file.close();
+}
 
 struct ShowMessage {
     char isbn[22];
@@ -337,12 +104,6 @@ struct ShowMessage {
     }
 };
 
-/*struct FinanceMessage{
-    char message[32];
-    FinanceMessage(){
-        message[0]='\0';
-    }
-};*/
 void FinanceInsert(double finance) {
     std::fstream file;
     file.open("file_finance");
@@ -364,40 +125,6 @@ void FinanceInsert(double finance) {
     file.seekp(0, std::ios::end);
     file.write(reinterpret_cast<char *>(&finance), sizeof(double));
     file.close();
-}
-
-std::string GetKey(std::string &key) {
-    for (int i = 0; i < key.length(); i++) {
-        if (key[i] == '|') {
-            std::string s_ = key.substr(0, i);
-            key = key.substr(i + 1);
-            return s_;
-        }
-    }
-}
-
-std::string Get(std::string &s) {
-    if (s == "") throw Invalid();
-    for (int i = 0; i < s.length(); i++) {
-        if (s[i] == ' ') {
-            std::string s_ = s.substr(0, i);
-            int j;
-            for (j = i + 1; j < s.length(); j++)
-                if (s[j] != ' ') break;
-            s = s.substr(j);
-            return s_;
-        }
-    }
-}
-
-long long CheckNum_(std::string num) {
-    long long ans = 0;
-    for (int i = 0; i < num.length(); i++) {
-        if (num[i] > '9' || num[i] < '0')
-            throw Invalid();
-        else ans = ans * 10 + (long long) (num[i] - '0');
-    }
-    return ans;
 }
 
 class People {
@@ -832,7 +559,8 @@ public:
             if (finance > 0) finance_plus += finance;
             else finance_minus -= finance;
         }
-        std::cout << "+ " << std::fixed << std::setprecision(2) << finance_plus << " - " << std::fixed << std::setprecision(2)
+        std::cout << "+ " << std::fixed << std::setprecision(2) << finance_plus << " - " << std::fixed
+                  << std::setprecision(2)
                   << finance_minus
                   << '\n';
     }

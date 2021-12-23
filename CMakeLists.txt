@@ -6,4 +6,4 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 set(src_dir
         ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
-add_executable(Bookstore ${src_dir} src/main.cpp)
+add_executable(code ${src_dir} src/main.cpp)

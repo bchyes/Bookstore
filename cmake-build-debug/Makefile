@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Bookstore
+# Target rules for targets named code
 
 # Build rule for target.
-Bookstore: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Bookstore
-.PHONY : Bookstore
+code: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 code
+.PHONY : code
 
 # fast build rule for target.
-Bookstore/fast:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/build
-.PHONY : Bookstore/fast
+code/fast:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/build
+.PHONY : code/fast
 
 src/main.o: src/main.cpp.o
 
@@ -129,7 +129,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -138,7 +138,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -147,7 +147,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Bookstore.dir/build.make CMakeFiles/Bookstore.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Bookstore"
+	@echo "... code"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

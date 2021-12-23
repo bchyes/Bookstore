@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/Command.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/People.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp
+store.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/store.h
+OperationFunction.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.h
+PeopleNode.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.h
+BookNode.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.h
+People.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/People.h
+Command.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/Command.h
+
+/mnt/d/CLion/Bookstore-main/Bookstore/src/store.h
+fstream
+-
+vector
+-
+queue
+-
+iostream
+-
+cstring
+-
+iomanip
+-
+
