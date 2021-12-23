@@ -6,8 +6,8 @@
 #include"Command.h"
 
 int main() {
-    freopen("test_robust.txt", "r", stdin);
-    freopen("test_robust.out", "w", stdout);
+    //freopen("test_robust.txt", "r", stdin);
+    //freopen("test_robust.out", "w", stdout);
     std::string s;
     People *account = new Visitor;
     account->Initialize();
