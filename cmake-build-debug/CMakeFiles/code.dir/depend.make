@@ -3,6 +3,7 @@
 
 CMakeFiles/code.dir/src/main.cpp.o: ../src/BookNode.h
 CMakeFiles/code.dir/src/main.cpp.o: ../src/Command.h
+CMakeFiles/code.dir/src/main.cpp.o: ../src/Log.h
 CMakeFiles/code.dir/src/main.cpp.o: ../src/OperationFunction.h
 CMakeFiles/code.dir/src/main.cpp.o: ../src/People.h
 CMakeFiles/code.dir/src/main.cpp.o: ../src/PeopleNode.h

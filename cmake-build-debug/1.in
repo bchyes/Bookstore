@@ -708,3 +708,7 @@ import 10 648.29
 delete eVkU
 import 30 5329.71
 logout
+su root 2
+show finance
+report finance
+log

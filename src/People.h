@@ -1,71 +1,7 @@
 #ifndef MAIN_1_CPP_PEOPLE_H
 #define MAIN_1_CPP_PEOPLE_H
-
-class EmployeeLog {
-public:
-    char type[22];
-    char op[102];
-    int time;
-    char name[62];
-
-    explicit EmployeeLog() {
-        type[0] = '\0';
-        op[0] = '\0';
-        time = 0;
-        name[0] = '\0';
-    }
-
-    explicit EmployeeLog(const EmployeeLog &nod) {
-        strcpy(this->type, nod.type);
-        strcpy(this->op, nod.op);
-        strcpy(this->name, nod.name);
-        this->time = nod.time;
-    }
-
-    bool operator>(const EmployeeLog &b) {
-        return (std::string(this->name) > std::string(b.name) ||
-                (std::string(this->name) == std::string(b.name) &&
-                 this->time > b.time));
-    }
-
-    bool operator>=(const EmployeeLog &b) {
-        return (std::string(this->name) > std::string(b.name) ||
-                (std::string(this->name) == std::string(b.name) &&
-                 this->time >= b.time));
-    }
-
-    bool operator==(const EmployeeLog &b) {
-        return ((std::string(this->name) == std::string(b.name) && this->time == b.time));
-    }
-
-    bool operator>=(const std::string &b) {
-        return (std::string(this->name) >= b);
-    }
-
-    bool operator>(const std::string &b) {
-        return (std::string(this->name) > b);
-    }
-
-    bool operator==(const std::string &b) {
-        return (std::string(this->name) == b);
-    }
-
-    EmployeeLog &operator=(const EmployeeLog &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->type, nod.type);
-        strcpy(this->op, nod.op);
-        strcpy(this->name, nod.name);
-        this->time = nod.time;
-        return (*this);
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const EmployeeLog &nod) {
-        os << std::string(nod.type) << "\t" << std::string(nod.op) << '\n';
-        return os;
-    }
-};
-
 std::vector<NodePeople> stk;
+
 std::vector<NodeBook> stk_;
 Store<NodeIndex_<NodePeople>, Block_<NodePeople>> file_people("file_people", "file_people_index", "file_people_delete");
 Store<NodeIndex_<NodeBook>, Block_<NodeBook>> file_book("file_book", "file_book_index", "file_book_delete");
@@ -77,7 +13,7 @@ Store<NodeIndex_<NodeBookKeyword>, Block_<NodeBookKeyword>> file_keyword("file_k
 Store<NodeIndex_<EmployeeLog>, Block_<EmployeeLog>> file_employee("file_employee", "file_employee_index",
                                                                   "file_employee_delete");
 
-void AddEmployeeMessage(EmployeeLog message) {
+/*void AddEmployeeMessage(EmployeeLog message) {
     std::fstream file;
     file.open("file_employee_all");
     if (!file) {
@@ -86,9 +22,9 @@ void AddEmployeeMessage(EmployeeLog message) {
         file.open("file_employee_all");
     }
     file.seekp(0, std::ios::end);
-    std::cout << message;
+    file << message;
     file.close();
-}
+}*/
 
 struct ShowMessage {
     char isbn[22];
@@ -128,9 +64,9 @@ void FinanceInsert(double finance) {
 }
 
 class People {
-protected:
-    NodeBook select;
 public:
+    NodeBook select;
+
     virtual ~People() {
         if (select.isbn[0] != '\0') Select(std::string(select.isbn));
     }
@@ -215,7 +151,7 @@ public:
 
     virtual void Show(ShowMessage infor) {
         try {
-            if (select.isbn[0] != '\0') Select(std::string(select.isbn));
+            //if (select.isbn[0] != '\0') Select(std::string(select.isbn));
             if (infor.isbn[0] != '\0') {
                 NodeBook book = file_book.Find<NodeBook>(std::string(infor.isbn));
                 if (infor.book_name[0] != '\0') {
@@ -536,8 +472,125 @@ public:
         FinanceInsert(-1 * cost);
     }
 
-    virtual void ReportMyself() {
+    virtual void AddMessage(const EmployeeLog &employee) {
+        file_employee.Insert(employee);
+    }
 
+    virtual void Report(Block_<EmployeeLog> employee, std::fstream &report, int i) {
+        if (std::string(employee.size[i].type) == "su") {
+            report << "Su" << '\n';
+            report << "Sued Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "logout") {
+            report << "Logout" << '\n';
+            if (employee.size[i].people_new.user_id[0] == '\0') {
+                report << "Nobody Sued" << '\n';
+                return;
+            }
+            report << "Sued Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "useradd") {
+            report << "Useradd" << '\n';
+            report << "Added Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "register") {
+            report << "Register" << '\n';
+            report << "Added Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "delete") {
+            report << "Delete" << '\n';
+            report << "Delete Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "passwd") {
+            report << "Password Change" << '\n';
+            report << "Old Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleLast(report);
+            report << "New Account Information" << '\n';
+            employee.size[i].PrintPeopleTitle(report);
+            employee.size[i].PrintPeopleNew(report);
+        } else if (std::string(employee.size[i].type) == "select") {
+            report << "Select" << '\n';
+            report << "Select Book Information" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookNew(report);
+        } else if (std::string(employee.size[i].type) == "show") {
+            report << "Show" << '\n';
+            report << "Show Book Information" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookNew(report);
+        } else if (std::string(employee.size[i].type) == "buy") {
+            report << "Buy" << '\n';
+            report << "Buy Book Information" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookLast(report);
+            report << "To" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookNew(report);
+        } else if (std::string(employee.size[i].type) == "modify") {
+            report << "Modify" << '\n';
+            report << "Modify Book Information" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookLast(report);
+            report << "To" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookNew(report);
+        } else if (std::string(employee.size[i].type) == "import") {
+            report << "Import" << '\n';
+            report << "Import Book Information" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookLast(report);
+            report << "To" << '\n';
+            employee.size[i].PrintBookTitle(report);
+            employee.size[i].PrintBookNew(report);
+        }
+    }
+
+    virtual void ReportForFinance(Block_<EmployeeLog> employee, std::fstream &report, int i) {
+        if (employee.size[i].finance > 0) {
+            report << "+[收入]: [" << employee.size[i].name << "] buy ["
+                   << employee.size[i].book_last.quantity - employee.size[i].book_new.quantity << "] of ["
+                   << employee.size[i].book_new.book_name << "] (price:" << std::fixed << std::setprecision(2)
+                   << employee.size[i].finance << ")" << '\n';
+        } else {
+            report << "+[支出]: [" << employee.size[i].name << "] import ["
+                   << employee.size[i].book_new.quantity - employee.size[i].book_last.quantity << "] of ["
+                   << employee.size[i].book_new.book_name << "] (price:" << std::fixed << std::setprecision(2)
+                   << employee.size[i].finance << ")" << '\n';
+        }
+        for (int j = 1; j <= 100; j++)
+            report << '-';
+        report << '\n';
+    }
+
+    virtual void ReportMyself() {
+        std::string ans = file_employee.FindMore(std::string(stk.back().user_name));
+        std::fstream file;
+        file.open("file_employee");
+        if (!file) {
+            return;
+        }
+        std::fstream report;
+        report.open("report_myself", std::fstream::out);
+        while (ans != "") {
+            long long locate = CheckNum_(Get(ans));
+            file.seekg(locate);
+            Block_<EmployeeLog> employee;
+            file.read(reinterpret_cast<char *>(&employee), sizeof(Block_<EmployeeLog>));
+            report << "Employee named " << std::left << std::setw(30) << std::string(stk.back().user_name) << '\n';
+            report << "Report My Work" << '\n';
+            report << '\n';
+            for (int i = 1; i <= employee.now; i++) {
+                if (std::string(employee.size[i].name) == std::string(stk.back().user_name)) {
+                    Report(employee, report, i);
+                }
+            }
+        }
     }
 
     virtual void ShowFinance(int time) {
@@ -588,15 +641,107 @@ public:
     }
 
     virtual void ReportFinance() {
+        std::fstream file;
+        std::fstream file_index;
+        std::string name = " ";
+        file.open("file_employee");
+        if (!file) return;
+        std::fstream report("report_finance", std::fstream::out);
+        file_index.open("file_employee_index");
+        NodeIndex_<EmployeeLog> employee_index;
+        Block_<EmployeeLog> employee;
+        file_index.seekg(0);
+        file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+        while (employee_index.next != -1) {
+            file_index.seekg(employee_index.next);
+            file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+            file.seekg(employee_index.block_begin);
+            file.read(reinterpret_cast<char *>(&employee), sizeof(Block_<EmployeeLog>));
+            for (int i = 1; i <= employee.now; i++) {
+                if (!employee.size[i].finance) continue;
+                if (name != std::string(employee.size[i].name)) {
+                    if (name != " ") {
+                        report << '\n';
+                        report << "Employee named " << std::left << std::setw(30) << std::string(employee.size[i].name)
+                               << '\n';
+                    } else report << "Manager" << '\n';
+                    report << "Report My Finance" << '\n';
+                    report << '\n';
+                    name = std::string(employee.size[i].name);
+                }
 
+                ReportForFinance(employee, report, i);
+            }
+        }
     }
 
     virtual void ReportEmployee() {
-
+        std::fstream file;
+        std::fstream file_index;
+        std::string name = "";
+        file.open("file_employee");
+        if (!file) return;
+        std::fstream report("report_employee", std::fstream::out);
+        file_index.open("file_employee_index");
+        NodeIndex_<EmployeeLog> employee_index;
+        Block_<EmployeeLog> employee;
+        file_index.seekg(0);
+        file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+        while (employee_index.next != -1) {
+            file_index.seekg(employee_index.next);
+            file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+            file.seekg(employee_index.block_begin);
+            file.read(reinterpret_cast<char *>(&employee), sizeof(Block_<EmployeeLog>));
+            for (int i = 1; i <= employee.now; i++) {
+                if (employee.size[i].priority != 3) continue;
+                if (name != std::string(employee.size[i].name)) {
+                    if (name != "") report << '\n';
+                    report << "Employee named " << std::left << std::setw(30) << std::string(employee.size[i].name)
+                           << '\n';
+                    report << "Report My Work" << '\n';
+                    report << '\n';
+                    name = std::string(employee.size[i].name);
+                }
+                Report(employee, report, i);
+            }
+        }
     }
 
     virtual void Log() {
-
+        std::fstream file;
+        std::fstream file_index;
+        std::string name = " ";
+        file.open("file_employee");
+        if (!file) return;
+        std::fstream report("log", std::fstream::out);
+        file_index.open("file_employee_index");
+        NodeIndex_<EmployeeLog> employee_index;
+        Block_<EmployeeLog> employee;
+        file_index.seekg(0);
+        file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+        while (employee_index.next != -1) {
+            file_index.seekg(employee_index.next);
+            file_index.read(reinterpret_cast<char *>(&employee_index), sizeof(NodeIndex_<EmployeeLog>));
+            file.seekg(employee_index.block_begin);
+            file.read(reinterpret_cast<char *>(&employee), sizeof(Block_<EmployeeLog>));
+            for (int i = 1; i <= employee.now; i++) {
+                if (name != std::string(employee.size[i].name)) {
+                    if (name != " ") {
+                        report << '\n';
+                        report << "Employee named " << std::left << std::setw(30) << std::string(employee.size[i].name)
+                               << '\n';
+                    } else report << "Manager" << '\n';
+                    report << "Report My Log" << '\n';
+                    report << '\n';
+                    name = std::string(employee.size[i].name);
+                }
+                Report(employee, report, i);
+                if (employee.size[i].finance) {
+                    report << "Last report's finance record" << '\n';
+                    ReportForFinance(employee, report, i);
+                }
+            }
+        }
     }
 };
 
@@ -623,15 +768,15 @@ public:
     }
 
     virtual void ReportFinance() {
-        throw Invalid();
+        return;
     }
 
     virtual void ReportEmployee() {
-        throw Invalid();
+        return;
     }
 
     virtual void Log() {
-        throw Invalid();
+        return;
     }
 };
 
@@ -678,7 +823,7 @@ public:
     }
 
     virtual void ReportMyself() {
-        throw Invalid();
+        return;
     }
 
     virtual void ShowFinance(int time) {
@@ -690,15 +835,15 @@ public:
     }
 
     virtual void ReportFinance() {
-        throw Invalid();
+        return;
     }
 
     virtual void ReportEmployee() {
-        throw Invalid();
+        return;
     }
 
     virtual void Log() {
-        throw Invalid();
+        return;
     }
 };
 
@@ -761,7 +906,7 @@ public:
     }
 
     virtual void ReportMyself() {
-        throw Invalid();
+        return;
     }
 
     virtual void ShowFinance(int time) {
@@ -773,15 +918,15 @@ public:
     }
 
     virtual void ReportFinance() {
-        throw Invalid();
+        return;
     }
 
     virtual void ReportEmployee() {
-        throw Invalid();
+        return;
     }
 
     virtual void Log() {
-        throw Invalid();
+        return;
     }
 };
 

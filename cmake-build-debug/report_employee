@@ -1,0 +1,179 @@
+Employee named WilliamMartin                 
+Report My Work
+
+Select
+Select Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	insomnia                                                    	consortium                                                  	112.35       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Import
+Import Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	insomnia                                                    	consortium                                                  	112.35       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	insomnia                                                    	consortium                                                  	112.35       	5         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Import
+Import Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	insomnia                                                    	consortium                                                  	112.35       	5         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	insomnia                                                    	consortium                                                  	112.35       	31        	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Select
+Select Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-539-28597-0   	flair                                                       	bevy|wealth                                                 	22.37        	11        	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Import
+Import Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-539-28597-0   	flair                                                       	bevy|wealth                                                 	22.37        	11        	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-539-28597-0   	flair                                                       	bevy|wealth                                                 	22.37        	50        	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Select
+Select Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	                                                            	                                                            	0            	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	                                                            	                                                            	0            	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	                                                            	0            	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	                                                            	0            	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	                                                            	0            	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	                                                            	0            	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	0            	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	0            	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	0            	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Import
+Import Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	10        	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Logout
+Sued Account Information
+User-ID                       	User-name                     	Priority  	Password                      	
+EVdtWnR5mgmIHqQYP1UnDykzzq_   	LisaSmith                     	1         	rAGMpxXH2j_1u67ACx5           	
+------------------------------------------------------------------------------------------------------------
+Select
+Select Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	DNA                                                         	uranium|consortium                                          	67.54        	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	DNA                                                         	uranium|consortium                                          	67.54        	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	67.54        	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	67.54        	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	67.54        	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	67.54        	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	188.78       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	67.54        	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-0-7836-5800-1   	endothelial                                                 	uranium|consortium                                          	188.78       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Select
+Select Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	Roberto|orthophosphate|hansom|anaphora|wealth               	194.06       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	homologue|hansom|banal|Roberto                              	194.06       	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	homologue|hansom|banal|Roberto                              	194.06       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	homologue|hansom|banal|Roberto                              	29.29        	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Modify
+Modify Book Information
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	homologue|hansom|banal|Roberto                              	194.06       	0         	
+To
+ISBN                	Book-Name                                                   	Keyword                                                     	Price        	Quantity  	
+978-1-253-97699-1   	bugaboo                                                     	homologue|hansom|banal|Roberto                              	29.29        	0         	
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Su
+Sued Account Information
+User-ID                       	User-name                     	Priority  	Password                      	
+JhhIgz5ga3QhsN                	EvelynMayo                    	1         	kH                            	
+------------------------------------------------------------------------------------------------------------
+Logout
+Sued Account Information
+User-ID                       	User-name                     	Priority  	Password                      	
+KMaZ2pnLR3cEQSWKyI            	RobertWilliams                	1         	OtwC1IJoTQLvmcAUMv3M1R        	
+------------------------------------------------------------------------------------------------------------

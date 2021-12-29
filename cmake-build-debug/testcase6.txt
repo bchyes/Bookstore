@@ -8,10 +8,9 @@ modify -ISBN=9787544287723
 select 9787544287723
 modify -name="Cortez,OliverandBall" -keyword="Pittman,TaylorandMartinez|McclureGroup" -author="White,MoralesandHanson"
 import 48 233.33
-logout
 show -ISBN=9787544287722
 show -ISBN=9787544287723
-register user0 user0_password RussellGroup
+useradd user0 user0_password 3 RussellGroup
 su user0 user0_password
 show -ISBN=9787544287723
 buy 9787544287723 0
@@ -33,8 +32,10 @@ logout
 su user0 user0_password
 show -ISBN=9787544287723
 buy 9787544287723 25
+report myself
 logout
 su root sjtu
 show finance
+report employee
 logout
 exit

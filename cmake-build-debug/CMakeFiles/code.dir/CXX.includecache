@@ -10,6 +10,8 @@
 
 /mnt/d/CLion/Bookstore-main/Bookstore/src/Command.h
 
+/mnt/d/CLion/Bookstore-main/Bookstore/src/Log.h
+
 /mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.h
 
 /mnt/d/CLion/Bookstore-main/Bookstore/src/People.h
@@ -25,6 +27,8 @@ PeopleNode.h
 /mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.h
 BookNode.h
 /mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.h
+Log.h
+/mnt/d/CLion/Bookstore-main/Bookstore/src/Log.h
 People.h
 /mnt/d/CLion/Bookstore-main/Bookstore/src/People.h
 Command.h

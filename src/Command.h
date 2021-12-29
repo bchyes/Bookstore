@@ -1,6 +1,7 @@
 #ifndef MAIN_1_CPP_COMMAND_H
 #define MAIN_1_CPP_COMMAND_H
-void Command(std::string s,People *account){
+
+void Command(std::string s, People *account, int &line) {
     if (s.length() > 1024) {
         std::cout << "Invalid" << '\n';
         return;
@@ -23,6 +24,11 @@ void Command(std::string s,People *account){
     s += " ";
     std::string token;
     token = Get(s);
+    EmployeeLog employee;
+    if (!stk.empty()) strcpy(employee.name, stk.back().user_name);
+    strcpy(employee.type, token.c_str());
+    employee.time = line;
+    if (!stk.empty()) employee.priority = stk.back().priority;
     if (token == "su") {
         try {
             std::string id = Get(s);
@@ -33,6 +39,8 @@ void Command(std::string s,People *account){
                 CheckNull(s);
                 account->Su(id, passwd);
                 NodePeople new_account = stk[stk.size() - 1];
+                employee.InsertPeopleNew(stk.back());
+                account->AddMessage(employee);
                 if (new_account.priority == 7) {
                     delete account;
                     account = new Manager;
@@ -46,6 +54,8 @@ void Command(std::string s,People *account){
             } else {
                 account->Su(id);
                 NodePeople new_account = stk[stk.size() - 1];
+                employee.InsertPeopleNew(stk.back());
+                account->AddMessage(employee);
                 if (new_account.priority == 7) {
                     delete account;
                     account = new Manager;
@@ -57,17 +67,21 @@ void Command(std::string s,People *account){
                     account = new Consumer;
                 }
             }
-        }
-        catch (Invalid) { std::cout << "Invalid" << '\n'; }
+        } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "logout") {
         try {
             CheckNull(s);
+            if (stk.size() > 1) {
+                employee.InsertPeopleNew(stk[stk.size() - 2]);
+                account->AddMessage(employee);
+            }
             account->Logout();
             if (stk.empty()) {
                 delete account;
                 account = new Visitor;
                 account->GetSelect();
             } else {
+                employee.InsertPeopleNew(stk.back());
                 NodePeople new_account = stk[stk.size() - 1];
                 if (new_account.priority == 7) {
                     delete account;
@@ -83,8 +97,7 @@ void Command(std::string s,People *account){
                     account->GetSelect();
                 }
             }
-        }
-        catch (Invalid) { std::cout << "Invalid" << '\n'; }
+        } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "useradd") {
         try {
             std::string id = Get(s);
@@ -97,6 +110,8 @@ void Command(std::string s,People *account){
             CheckNull(s);
             Check_See(name);
             account->Useradd(id, passwd, priority, name);
+            employee.InsertPeopleNew(file_people.Find<NodePeople>(id));
+            account->AddMessage(employee);
         }
         catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "register") {
@@ -109,6 +124,8 @@ void Command(std::string s,People *account){
             Check_See(name);
             CheckNull(s);
             account->Register(id, passwd, name);
+            employee.InsertPeopleNew(file_people.Find<NodePeople>(id));
+            account->AddMessage(employee);
         }
         catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "delete") {
@@ -116,15 +133,17 @@ void Command(std::string s,People *account){
             std::string id = Get(s);
             Check_(id);
             CheckNull(s);
+            employee.InsertPeopleNew(file_people.Find<NodePeople>(id));
             account->Delete(id);
-        }
-        catch (Invalid) { std::cout << "Invalid" << '\n'; }
+            account->AddMessage(employee);
+        } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "passwd") {
         try {
             std::string id = Get(s);
             Check_(id);
             std::string passwd = Get(s);
             Check_(passwd);
+            employee.InsertPeopleLast(file_people.Find<NodePeople>(id));
             if (s != "") {
                 std::string new_passwd = Get(s);
                 Check_(new_passwd);
@@ -133,13 +152,18 @@ void Command(std::string s,People *account){
             } else {
                 account->Passwd(id, passwd);
             }
+            employee.InsertPeopleNew(file_people.Find<NodePeople>(id));
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "select") {
         try {
             std::string isbn = Get(s);
             CheckIsbn(isbn);
             CheckNull(s);
+            //employee.InsertBookLast(account->select);
             account->Select(isbn);
+            employee.InsertBookNew(account->select);
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "show") {
         try {
@@ -155,27 +179,44 @@ void Command(std::string s,People *account){
                     } else {
                         account->ShowFinance();
                     }
+                    //strcpy(employee.type, "show finance");
+                    //account->AddMessage(employee);
                     return;
                 }
             }
             if (token_ != "")
                 s = token_ + " " + s;
+            std::string type, infor;
             if (s != "") {
                 std::string op = Get(s);
                 CheckNull(s);
-                std::string type, infor;
                 GetShow(op, type, infor);
+                if (account->select.isbn[0] != '\0') account->Select(std::string(account->select.isbn));
                 if (type == "ISBN") {
                     strcpy(mess.isbn, infor.c_str());
+                    //employee.InsertBookLast(file_book.Find<NodeBook>(infor));
                 } else if (type == "name") {
                     strcpy(mess.book_name, infor.c_str());
+                    //employee.InsertBookLast(file_name.Find<NodeBookName>(infor));
                 } else if (type == "author") {
                     strcpy(mess.author, infor.c_str());
+                    //employee.InsertBookLast(file_author.Find<NodeBookAuthor>(infor));
                 } else if (type == "keyword") {
                     strcpy(mess.keyword, infor.c_str());
+                    //employee.InsertBookLast(file_keyword.Find<NodeBookKeyword>(infor));
                 }
             }
             account->Show(mess);
+            if (type == "ISBN") {
+                employee.InsertBookNew(file_book.Find<NodeBook>(infor));
+            } else if (type == "name") {
+                employee.InsertBookNew(file_name.Find<NodeBookName>(infor));
+            } else if (type == "author") {
+                employee.InsertBookNew(file_author.Find<NodeBookAuthor>(infor));
+            } else if (type == "keyword") {
+                employee.InsertBookNew(file_keyword.Find<NodeBookKeyword>(infor));
+            }
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "buy") {
         try {
@@ -183,7 +224,11 @@ void Command(std::string s,People *account){
             CheckIsbn(isbn);
             int quantity = CheckNum(Get(s));
             CheckNull(s);
+            employee.InsertBookLast(file_book.Find<NodeBook>(isbn));
             account->Buy(isbn, quantity);
+            employee.InsertBookNew(file_book.Find<NodeBook>(isbn));
+            employee.finance = 1.0 * quantity * file_book.Find<NodeBook>(isbn).price;
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "modify") {
         try {
@@ -222,6 +267,7 @@ void Command(std::string s,People *account){
                 std::string op = Get(s);
                 std::string type, infor;
                 GetModify(op, type, infor);
+                employee.InsertBookLast(account->select);
                 if (type == "ISBN") {
                     account->ModifyIsbn(infor);
                 } else if (type == "name") {
@@ -233,18 +279,28 @@ void Command(std::string s,People *account){
                 } else if (type == "price") {
                     account->ModifyPrice(stod(infor));
                 }
+                employee.InsertBookNew(account->select);
+                account->AddMessage(employee);
+                employee.time++;
+                line++;
             }
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "import") {
         try {
             int quantity = CheckNum(Get(s));
             double total_cost = CheckDouble(Get(s));
             CheckNull(s);
+            employee.InsertBookLast(account->select);
             account->Import(quantity, total_cost);
+            employee.InsertBookNew(account->select);
+            employee.finance = -1.0 * total_cost;
+            account->AddMessage(employee);
         } catch (Invalid) { std::cout << "Invalid" << '\n'; }
     } else if (token == "exit") {
         try {
             CheckNull(s);
+            //account->AddMessage(employee);
             delete account;
             exit(0);
         }
@@ -252,10 +308,23 @@ void Command(std::string s,People *account){
     } else if (token == "quit") {
         try {
             CheckNull(s);
+            //account->AddMessage(employee);
             delete account;
             exit(0);
         }
         catch (Invalid) { std::cout << "Invalid" << '\n'; }
+    } else if (token == "report") {
+        std::string token_ = Get(s);
+        if (token_ == "myself") {
+            account->ReportMyself();
+        } else if (token_ == "employee") {
+            account->ReportEmployee();
+        } else if (token_ == "finance") {
+            account->ReportFinance();
+        }
+    } else if (token == "log") {
+        account->Log();
     } else std::cout << "Invalid" << '\n';
 }
+
 #endif //MAIN_1_CPP_COMMAND_H
