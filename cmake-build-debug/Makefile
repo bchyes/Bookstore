@@ -123,6 +123,141 @@ code/fast:
 	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/build
 .PHONY : code/fast
 
+src/BookNode.o: src/BookNode.cpp.o
+
+.PHONY : src/BookNode.o
+
+# target to build an object file
+src/BookNode.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/BookNode.cpp.o
+.PHONY : src/BookNode.cpp.o
+
+src/BookNode.i: src/BookNode.cpp.i
+
+.PHONY : src/BookNode.i
+
+# target to preprocess a source file
+src/BookNode.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/BookNode.cpp.i
+.PHONY : src/BookNode.cpp.i
+
+src/BookNode.s: src/BookNode.cpp.s
+
+.PHONY : src/BookNode.s
+
+# target to generate assembly for a file
+src/BookNode.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/BookNode.cpp.s
+.PHONY : src/BookNode.cpp.s
+
+src/Log.o: src/Log.cpp.o
+
+.PHONY : src/Log.o
+
+# target to build an object file
+src/Log.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/Log.cpp.o
+.PHONY : src/Log.cpp.o
+
+src/Log.i: src/Log.cpp.i
+
+.PHONY : src/Log.i
+
+# target to preprocess a source file
+src/Log.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/Log.cpp.i
+.PHONY : src/Log.cpp.i
+
+src/Log.s: src/Log.cpp.s
+
+.PHONY : src/Log.s
+
+# target to generate assembly for a file
+src/Log.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/Log.cpp.s
+.PHONY : src/Log.cpp.s
+
+src/OperationFunction.o: src/OperationFunction.cpp.o
+
+.PHONY : src/OperationFunction.o
+
+# target to build an object file
+src/OperationFunction.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/OperationFunction.cpp.o
+.PHONY : src/OperationFunction.cpp.o
+
+src/OperationFunction.i: src/OperationFunction.cpp.i
+
+.PHONY : src/OperationFunction.i
+
+# target to preprocess a source file
+src/OperationFunction.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/OperationFunction.cpp.i
+.PHONY : src/OperationFunction.cpp.i
+
+src/OperationFunction.s: src/OperationFunction.cpp.s
+
+.PHONY : src/OperationFunction.s
+
+# target to generate assembly for a file
+src/OperationFunction.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/OperationFunction.cpp.s
+.PHONY : src/OperationFunction.cpp.s
+
+src/People.o: src/People.cpp.o
+
+.PHONY : src/People.o
+
+# target to build an object file
+src/People.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/People.cpp.o
+.PHONY : src/People.cpp.o
+
+src/People.i: src/People.cpp.i
+
+.PHONY : src/People.i
+
+# target to preprocess a source file
+src/People.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/People.cpp.i
+.PHONY : src/People.cpp.i
+
+src/People.s: src/People.cpp.s
+
+.PHONY : src/People.s
+
+# target to generate assembly for a file
+src/People.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/People.cpp.s
+.PHONY : src/People.cpp.s
+
+src/PeopleNode.o: src/PeopleNode.cpp.o
+
+.PHONY : src/PeopleNode.o
+
+# target to build an object file
+src/PeopleNode.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/PeopleNode.cpp.o
+.PHONY : src/PeopleNode.cpp.o
+
+src/PeopleNode.i: src/PeopleNode.cpp.i
+
+.PHONY : src/PeopleNode.i
+
+# target to preprocess a source file
+src/PeopleNode.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/PeopleNode.cpp.i
+.PHONY : src/PeopleNode.cpp.i
+
+src/PeopleNode.s: src/PeopleNode.cpp.s
+
+.PHONY : src/PeopleNode.s
+
+# target to generate assembly for a file
+src/PeopleNode.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/PeopleNode.cpp.s
+.PHONY : src/PeopleNode.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -159,6 +294,21 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... code"
+	@echo "... src/BookNode.o"
+	@echo "... src/BookNode.i"
+	@echo "... src/BookNode.s"
+	@echo "... src/Log.o"
+	@echo "... src/Log.i"
+	@echo "... src/Log.s"
+	@echo "... src/OperationFunction.o"
+	@echo "... src/OperationFunction.i"
+	@echo "... src/OperationFunction.s"
+	@echo "... src/People.o"
+	@echo "... src/People.i"
+	@echo "... src/People.s"
+	@echo "... src/PeopleNode.o"
+	@echo "... src/PeopleNode.i"
+	@echo "... src/PeopleNode.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

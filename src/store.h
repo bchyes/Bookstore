@@ -2,13 +2,10 @@
 #define MAIN_1_CPP_STORE_H
 
 #include <fstream>
-#include <vector>
 #include <queue>
 #include <iostream>
 #include <cstring>
-#include <iomanip>
-
-class Invalid {};
+#include "Exception.h"
 
 template<class Node>
 void Swap(Node &a, Node &b) {

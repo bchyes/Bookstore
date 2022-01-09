@@ -1,168 +1,38 @@
 #ifndef MAIN_1_CPP_OPERATIONFUNCTION_H
 #define MAIN_1_CPP_OPERATIONFUNCTION_H
-std::string GetKey(std::string &key) {
-    for (int i = 0; i < key.length(); i++) {
-        if (key[i] == '|') {
-            std::string s_ = key.substr(0, i);
-            key = key.substr(i + 1);
-            return s_;
-        }
-    }
-}
 
-std::string Get(std::string &s) {
-    if (s == "") throw Invalid();
-    for (int i = 0; i < s.length(); i++) {
-        if (s[i] == ' ') {
-            std::string s_ = s.substr(0, i);
-            int j;
-            for (j = i + 1; j < s.length(); j++)
-                if (s[j] != ' ') break;
-            s = s.substr(j);
-            return s_;
-        }
-    }
-}
+#include <string>
 
-long long CheckNum_(std::string num) {
-    long long ans = 0;
-    for (int i = 0; i < num.length(); i++) {
-        if (num[i] > '9' || num[i] < '0')
-            throw Invalid();
-        else ans = ans * 10 + (long long) (num[i] - '0');
-    }
-    return ans;
-}
-int CheckNum(std::string num) {
-    if (num.length() > 10) throw Invalid();
-    if (num.length() == 10) if (num > "2147483647") throw Invalid();
-    int ans = 0;
-    for (int i = 0; i < num.length(); i++) {
-        if (num[i] > '9' || num[i] < '0')
-            throw Invalid();
-        else ans = ans * 10 + int(num[i] - '0');
-    }
-    return ans;
-}
+//获取keyword中以|分开的一个keyword
+std::string GetKey(std::string &key);
 
-double CheckDouble(std::string num) {
-    if (num.length() > 13) throw Invalid();
-    bool dot = 0;
-    for (int i = 0; i < num.length(); i++) {
-        if (num[i] == '.' && !dot) {
-            dot = 1;
-            if (i + 3 != num.length()) throw Invalid();
-            continue;
-        } else if (num[i] == '.' && dot) throw Invalid();
-        if (num[i] > '9' || num[i] < '0')
-            throw Invalid();
-    }
-    return stod(num);
-}
+//获取空格分开的字符串
+std::string Get(std::string &s);
 
-void CheckNull(std::string s) {
-    if (s != "") throw Invalid();
-}
+//检查是不是数字，并返回long long
+long long CheckNum_(std::string num);
 
-void GetModify(const std::string &op, std::string &type, std::string &infor) {
-    if (op[0] != '-') throw Invalid();
-    int i;
-    for (i = 1; i < op.length(); i++)
-        if (op[i] != '=') type += op[i];
-        else break;
-    if (i == op.length()) throw Invalid();
-    if (type != "name" && type != "ISBN" && type != "author" && type != "keyword" && type != "price")
-        throw Invalid();
-    if (type == "price") {
-        if (i + 1 >= op.length()) throw Invalid();
-        bool dot = 0;
-        for (i++; i < op.length(); i++) {
-            if (op[i] == '.' && !dot) {
-                dot = 1;
-                infor += op[i];
-                continue;
-            } else if (op[i] == '.' && dot) throw Invalid();
-            if (op[i] > '9' || op[i] < '0')
-                throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 13) throw Invalid();
-    } else if (type == "ISBN") {
-        if (i + 1 >= op.length()) throw Invalid();
-        for (i++; i < op.length(); i++) {
-            if (int(op[i]) < 32 || int(op[i]) == 127) throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 20) throw Invalid();
-    } else {
-        if (op[i + 1] != '"' || op[op.length() - 1] != '"') throw Invalid();
-        if (i + 3 >= op.length()) throw Invalid();
-        for (i += 2; i < op.length() - 1; i++) {
-            if (int(op[i]) < 32 || int(op[i]) == 127 || op[i] == '"') throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 60) throw Invalid();
-    }
-}
+//检查是不是数字，并返回int
+int CheckNum(std::string num);
 
-void GetShow(const std::string &op, std::string &type, std::string &infor) {
-    if (op[0] != '-') throw Invalid();
-    int i;
-    for (i = 1; i < op.length(); i++)
-        if (op[i] != '=') type += op[i];
-        else break;
-    if (i == op.length()) throw Invalid();
-    if (type != "name" && type != "ISBN" && type != "author" && type != "keyword")
-        throw Invalid();
-    if (type == "ISBN") {
-        if (i + 1 >= op.length()) throw Invalid();
-        for (i++; i < op.length(); i++) {
-            if (int(op[i]) < 32 || int(op[i]) == 127) throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 20) throw Invalid();
-    } else if (type != "keyword") {
-        if (op[i + 1] != '"' || op[op.length() - 1] != '"') throw Invalid();
-        if (i + 3 >= op.length()) throw Invalid();
-        for (i += 2; i < op.length() - 1; i++) {
-            if (int(op[i]) < 32 || int(op[i]) == 127 || op[i] == '"') throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 60) throw Invalid();
-    } else {
-        if (op[i + 1] != '"' || op[op.length() - 1] != '"') throw Invalid();
-        if (i + 3 >= op.length()) throw Invalid();
-        for (i += 2; i < op.length() - 1; i++) {
-            if (int(op[i]) < 32 || int(op[i]) == 127 || op[i] == '"' || op[i] == '|') throw Invalid();
-            infor += op[i];
-        }
-        if (infor.length() > 60) throw Invalid();
-    }
-}
+//检查是不是数字，并返回double
+double CheckDouble(std::string num);
+
+//检查是不是空字符串
+void CheckNull(std::string s);
+
+//获得modify操作的信息，操作的种类返回在type中，信息在infor中
+void GetModify(const std::string &op, std::string &type, std::string &infor);
+
+//获得show操作的信息，操作的种类返回在type中，信息在infor中
+void GetShow(const std::string &op, std::string &type, std::string &infor);
 
 //检查数字，字母，下划线
-void Check_(std::string s) {
-    if (s.length() > 30) throw Invalid();
-    for (int i = 0; i < s.length(); i++) {
-        if ((s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z') ||
-            s[i] == '_')
-            continue;
-        throw Invalid();
-    }
-}
+void Check_(std::string s);
 
 //检查不可见字符
-void Check_See(std::string s) {
-    if (s.length() > 30) throw Invalid();
-    for (int i = 0; i < s.length(); i++) {
-        if (int(s[i]) < 32 || int(s[i]) == 127) throw Invalid();
-    }
-}
+void Check_See(std::string s);
 
-void CheckIsbn(std::string s) {
-    if (s.length() > 20) throw Invalid();
-    for (int i = 0; i < s.length(); i++) {
-        if (int(s[i]) < 32 || int(s[i]) == 127) throw Invalid();
-    }
-}
+void CheckIsbn(std::string s);
+
 #endif //MAIN_1_CPP_OPERATIONFUNCTION_H

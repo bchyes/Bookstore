@@ -1,7 +1,15 @@
 #ifndef MAIN_1_CPP_COMMAND_H
 #define MAIN_1_CPP_COMMAND_H
+extern std::vector<NodePeople> stk;
+extern std::vector<NodeBook> stk_;
+extern Store<NodeIndex_<NodePeople>, Block_<NodePeople>> file_people;
+extern Store<NodeIndex_<NodeBook>, Block_<NodeBook>> file_book;
+extern Store<NodeIndex_<NodeBookName>, Block_<NodeBookName>> file_name;
+extern Store<NodeIndex_<NodeBookAuthor>, Block_<NodeBookAuthor>> file_author;
+extern Store<NodeIndex_<NodeBookKeyword>, Block_<NodeBookKeyword>> file_keyword;
+extern Store<NodeIndex_<EmployeeLog>, Block_<EmployeeLog>> file_employee;
 
-void Command(std::string s, People *account, int &line) {
+void Command(std::string s, BaseAccount *account, int &line) {
     if (s.length() > 1024) {
         std::cout << "Invalid" << '\n';
         return;

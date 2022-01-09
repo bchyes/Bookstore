@@ -1,5 +1,12 @@
 #ifndef MAIN_1_CPP_BOOKNODE_H
 #define MAIN_1_CPP_BOOKNODE_H
+
+#include <string>
+#include <cstring>
+#include <iomanip>
+#include <fstream>
+
+//以ISBN为关键词的书节点
 class NodeBook {
 public:
     char isbn[22];
@@ -9,252 +16,94 @@ public:
     int quantity;
     double price;
 
-    explicit NodeBook() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
+    explicit NodeBook();
 
     explicit NodeBook(std::string isbn_, std::string name, std::string author_, std::string key, int quantity_,
-                      double price_) {
-        strcpy(isbn, isbn_.c_str());
-        strcpy(book_name, name.c_str());
-        strcpy(author, author_.c_str());
-        strcpy(keyword, key.c_str());
-        quantity = quantity_;
-        price = price_;
-    }
+                      double price_);
 
-    bool operator>(const NodeBook &b) {
-        return (std::string(this->isbn) > std::string(b.isbn));
-    }
+    bool operator>(const NodeBook &b);
 
-    bool operator>=(const NodeBook &b) {
-        return (std::string(this->isbn) >= std::string(b.isbn));
+    bool operator>=(const NodeBook &b);
 
-    }
+    bool operator==(const NodeBook &b);
 
-    bool operator==(const NodeBook &b) {
-        return (std::string(this->isbn) == std::string(b.isbn));
-    }
+    bool operator>=(const std::string &b);
 
-    bool operator>=(const std::string &b) {
-        return (std::string(this->isbn) >= b);
-    }
+    bool operator>(const std::string &b);
 
-    bool operator>(const std::string &b) {
-        return (std::string(this->isbn) > b);
-    }
+    bool operator==(const std::string &b);
 
-    bool operator==(const std::string &b) {
-        return (std::string(this->isbn) == b);
-    }
+    NodeBook &operator=(const NodeBook &nod);
 
-    NodeBook &operator=(const NodeBook &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
-
-    friend std::ostream &operator<<(std::ostream &os, const NodeBook &nod) {
-        os << std::string(nod.isbn) << '\t' << std::string(nod.book_name) << '\t' << std::string(nod.author) << '\t'
-           << std::string(nod.keyword) << '\t' << std::fixed << std::setprecision(2) << nod.price << '\t'
-           << nod.quantity
-           << '\n';
-        return os;
-    }
+    friend std::ostream &operator<<(std::ostream &os, const NodeBook &nod);
 };
 
+//以name为关键词
 class NodeBookName : public NodeBook {
 public:
-    explicit NodeBookName() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
+    explicit NodeBookName();
 
-    explicit NodeBookName(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
+    explicit NodeBookName(const NodeBook &nod);
 
-    bool operator>(const NodeBookName &b) {
-        return (std::string(this->book_name) > std::string(b.book_name) ||
-                (std::string(this->book_name) == std::string(b.book_name) &&
-                 std::string(this->isbn) > std::string(b.isbn)));
-    }
+    bool operator>(const NodeBookName &b);
 
-    bool operator>=(const NodeBookName &b) {
-        return (std::string(this->book_name) > std::string(b.book_name) ||
-                (std::string(this->book_name) == std::string(b.book_name) &&
-                 std::string(this->isbn) >= std::string(b.isbn)));
+    bool operator>=(const NodeBookName &b);
 
-    }
+    bool operator==(const NodeBookName &b);
 
-    bool operator==(const NodeBookName &b) {
-        return (std::string(this->book_name) == std::string(b.book_name) &&
-                std::string(this->isbn) == std::string(b.isbn));
-    }
+    bool operator>=(const std::string &b);
 
-    bool operator>=(const std::string &b) {
-        return (std::string(this->book_name) >= b);
-    }
+    bool operator>(const std::string &b);
 
-    bool operator>(const std::string &b) {
-        return (std::string(this->book_name) > b);
-    }
+    bool operator==(const std::string &b);
 
-    bool operator==(const std::string &b) {
-        return (std::string(this->book_name) == b);
-    }
-
-    NodeBookName &operator=(const NodeBookName &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
+    NodeBookName &operator=(const NodeBookName &nod);
 };
 
+//以作者为关键词
 class NodeBookAuthor : public NodeBook {
 public:
-    explicit NodeBookAuthor() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        quantity = price = 0;
-    }
+    explicit NodeBookAuthor();
 
-    explicit NodeBookAuthor(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
+    explicit NodeBookAuthor(const NodeBook &nod);
 
-    bool operator>(const NodeBookAuthor &b) {
-        return (std::string(this->author) > std::string(b.author) ||
-                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) > std::string(b.isbn)));
-    }
+    bool operator>(const NodeBookAuthor &b);
 
-    bool operator>=(const NodeBookAuthor &b) {
-        return (std::string(this->author) > std::string(b.author) ||
-                (std::string(this->author) == std::string(b.author) && std::string(this->isbn) >= std::string(b.isbn)));
+    bool operator>=(const NodeBookAuthor &b);
 
-    }
+    bool operator==(const NodeBookAuthor &b);
 
-    bool operator==(const NodeBookAuthor &b) {
-        return (std::string(this->author) == std::string(b.author) && std::string(this->isbn) == std::string(b.isbn));
-    }
+    bool operator>=(const std::string &b);
 
-    bool operator>=(const std::string &b) {
-        return (std::string(this->author) >= b);
-    }
+    bool operator>(const std::string &b);
 
-    bool operator>(const std::string &b) {
-        return (std::string(this->author) > b);
-    }
+    bool operator==(const std::string &b);
 
-    bool operator==(const std::string &b) {
-        return (std::string(this->author) == b);
-    }
-
-    NodeBookAuthor &operator=(const NodeBookAuthor &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
+    NodeBookAuthor &operator=(const NodeBookAuthor &nod);
 };
 
+//以keyword为关键词
 class NodeBookKeyword : public NodeBook {
 public:
-    char keyword_[62];
+    char keyword_[62];//处理提取出来的keyword，即单个单词
 
-    explicit NodeBookKeyword() {
-        isbn[0] = '\0';
-        book_name[0] = '\0';
-        author[0] = '\0';
-        keyword[0] = '\0';
-        keyword_[0] = '\0';
-        quantity = price = 0;
-    }
+    explicit NodeBookKeyword();
 
-    explicit NodeBookKeyword(const NodeBook &nod) {
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        this->keyword_[0] = '\0';
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-    }
+    explicit NodeBookKeyword(const NodeBook &nod);
 
-    bool operator>(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) > std::string(b.keyword_) ||
-                (std::string(this->keyword_) == std::string(b.keyword_) &&
-                 std::string(this->isbn) > std::string(b.isbn)));
-    }
+    bool operator>(const NodeBookKeyword &b);
 
-    bool operator>=(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) > std::string(b.keyword_) ||
-                (std::string(this->keyword_) == std::string(b.keyword_) &&
-                 std::string(this->isbn) >= std::string(b.isbn)));
+    bool operator>=(const NodeBookKeyword &b);
 
-    }
+    bool operator==(const NodeBookKeyword &b);
 
-    bool operator==(const NodeBookKeyword &b) {
-        return (std::string(this->keyword_) == std::string(b.keyword_) &&
-                std::string(this->isbn) == std::string(b.isbn));
-    }
+    bool operator>=(const std::string &b);
 
-    bool operator>=(const std::string &b) {
-        return (std::string(this->keyword_) >= b);
-    }
+    bool operator>(const std::string &b);
 
-    bool operator>(const std::string &b) {
-        return (std::string(this->keyword_) > b);
-    }
+    bool operator==(const std::string &b);
 
-    bool operator==(const std::string &b) {
-        return (std::string(this->keyword_) == b);
-    }
-
-    NodeBookKeyword &operator=(const NodeBookKeyword &nod) {
-        if (this == &nod) return (*this);
-        strcpy(this->isbn, nod.isbn);
-        strcpy(this->book_name, nod.book_name);
-        strcpy(this->author, nod.author);
-        strcpy(this->keyword, nod.keyword);
-        strcpy(this->keyword_, nod.keyword_);
-        this->quantity = nod.quantity;
-        this->price = nod.price;
-        return (*this);
-    }
+    NodeBookKeyword &operator=(const NodeBookKeyword &nod);
 };
 
 #endif //MAIN_1_CPP_BOOKNODE_H

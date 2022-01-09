@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/code.dir/src/main.cpp.o  -o code 
+/usr/bin/c++  -g   CMakeFiles/code.dir/src/main.cpp.o CMakeFiles/code.dir/src/OperationFunction.cpp.o CMakeFiles/code.dir/src/Log.cpp.o CMakeFiles/code.dir/src/BookNode.cpp.o CMakeFiles/code.dir/src/PeopleNode.cpp.o CMakeFiles/code.dir/src/People.cpp.o  -o code 

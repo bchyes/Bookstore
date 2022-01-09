@@ -84,6 +84,36 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/Log.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/Log.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/People.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/People.h">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.h">
+			<Option target="code"/>
+		</Unit>
 		<Unit filename="/mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp">
 			<Option target="code"/>
 		</Unit>

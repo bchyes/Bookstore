@@ -70,17 +70,92 @@ CMakeFiles/code.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/main.cpp -o CMakeFiles/code.dir/src/main.cpp.s
 
+CMakeFiles/code.dir/src/OperationFunction.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/OperationFunction.cpp.o: ../src/OperationFunction.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/code.dir/src/OperationFunction.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/OperationFunction.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.cpp
+
+CMakeFiles/code.dir/src/OperationFunction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/OperationFunction.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.cpp > CMakeFiles/code.dir/src/OperationFunction.cpp.i
+
+CMakeFiles/code.dir/src/OperationFunction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/OperationFunction.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/OperationFunction.cpp -o CMakeFiles/code.dir/src/OperationFunction.cpp.s
+
+CMakeFiles/code.dir/src/Log.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/Log.cpp.o: ../src/Log.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/code.dir/src/Log.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/Log.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/Log.cpp
+
+CMakeFiles/code.dir/src/Log.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/Log.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/Log.cpp > CMakeFiles/code.dir/src/Log.cpp.i
+
+CMakeFiles/code.dir/src/Log.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/Log.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/Log.cpp -o CMakeFiles/code.dir/src/Log.cpp.s
+
+CMakeFiles/code.dir/src/BookNode.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/BookNode.cpp.o: ../src/BookNode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/code.dir/src/BookNode.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/BookNode.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.cpp
+
+CMakeFiles/code.dir/src/BookNode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/BookNode.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.cpp > CMakeFiles/code.dir/src/BookNode.cpp.i
+
+CMakeFiles/code.dir/src/BookNode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/BookNode.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/BookNode.cpp -o CMakeFiles/code.dir/src/BookNode.cpp.s
+
+CMakeFiles/code.dir/src/PeopleNode.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/PeopleNode.cpp.o: ../src/PeopleNode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/code.dir/src/PeopleNode.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/PeopleNode.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.cpp
+
+CMakeFiles/code.dir/src/PeopleNode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/PeopleNode.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.cpp > CMakeFiles/code.dir/src/PeopleNode.cpp.i
+
+CMakeFiles/code.dir/src/PeopleNode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/PeopleNode.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/PeopleNode.cpp -o CMakeFiles/code.dir/src/PeopleNode.cpp.s
+
+CMakeFiles/code.dir/src/People.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/People.cpp.o: ../src/People.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/code.dir/src/People.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/People.cpp.o -c /mnt/d/CLion/Bookstore-main/Bookstore/src/People.cpp
+
+CMakeFiles/code.dir/src/People.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/People.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CLion/Bookstore-main/Bookstore/src/People.cpp > CMakeFiles/code.dir/src/People.cpp.i
+
+CMakeFiles/code.dir/src/People.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/People.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CLion/Bookstore-main/Bookstore/src/People.cpp -o CMakeFiles/code.dir/src/People.cpp.s
+
 # Object files for target code
 code_OBJECTS = \
-"CMakeFiles/code.dir/src/main.cpp.o"
+"CMakeFiles/code.dir/src/main.cpp.o" \
+"CMakeFiles/code.dir/src/OperationFunction.cpp.o" \
+"CMakeFiles/code.dir/src/Log.cpp.o" \
+"CMakeFiles/code.dir/src/BookNode.cpp.o" \
+"CMakeFiles/code.dir/src/PeopleNode.cpp.o" \
+"CMakeFiles/code.dir/src/People.cpp.o"
 
 # External object files for target code
 code_EXTERNAL_OBJECTS =
 
 code: CMakeFiles/code.dir/src/main.cpp.o
+code: CMakeFiles/code.dir/src/OperationFunction.cpp.o
+code: CMakeFiles/code.dir/src/Log.cpp.o
+code: CMakeFiles/code.dir/src/BookNode.cpp.o
+code: CMakeFiles/code.dir/src/PeopleNode.cpp.o
+code: CMakeFiles/code.dir/src/People.cpp.o
 code: CMakeFiles/code.dir/build.make
 code: CMakeFiles/code.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable code"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/CLion/Bookstore-main/Bookstore/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable code"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/code.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

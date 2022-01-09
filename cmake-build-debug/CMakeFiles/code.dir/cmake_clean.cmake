@@ -1,4 +1,9 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/code.dir/src/BookNode.cpp.o"
+  "CMakeFiles/code.dir/src/Log.cpp.o"
+  "CMakeFiles/code.dir/src/OperationFunction.cpp.o"
+  "CMakeFiles/code.dir/src/People.cpp.o"
+  "CMakeFiles/code.dir/src/PeopleNode.cpp.o"
   "CMakeFiles/code.dir/src/main.cpp.o"
   "code"
   "code.pdb"
