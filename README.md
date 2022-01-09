@@ -236,3 +236,7 @@ report employee
 log
 
 同上述输出
+
+## Bonus
+
+实现lint自动语法检查，自动测评下发数据并生成测评报告
